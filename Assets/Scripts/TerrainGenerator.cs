@@ -18,7 +18,7 @@ public class TerrainGenerator : MonoBehaviour
             for(int y = 0; y < height; y++){
                 for(int z = 0; z < size; z++){
                     if(GenerationFunction((float)x, (float)y, (float)z, 0, 0, 0.3f, size, height, 3, 0.3f)){
-                         
+                        Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
                     }
                 }
             }
