@@ -18,7 +18,7 @@ public class TerrainGenerator : MonoBehaviour
     int pointPos;
     Mesh mesh;
     Vector2[] uvs;
-    public GameObject sphere;
+	public Material[] mats;
 	Vector3[] tempVerts = new Vector3[]{new Vector3(0, 0, 0.5f),
 		new Vector3(0.5f, 0, 1),
 		new Vector3(1, 0, 0.5f),
@@ -93,6 +93,7 @@ public class TerrainGenerator : MonoBehaviour
 					if(triReList.Count > 0){
 	                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
 	                    cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+						cubeInst.GetComponent<MeshRenderer>().material = mats[Random.Range(0, mats.Length)];
 					}
                 }
             }
