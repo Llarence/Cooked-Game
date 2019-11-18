@@ -13,23 +13,24 @@ public class TerrainGenerator : MonoBehaviour
     public GameObject cube;
     GameObject cubeInst;
     int[,,] vertices;
+	List<int> triReList;
     List<int> triList;
     int pointPos;
     Mesh mesh;
     Vector2[] uvs;
     public GameObject sphere;
-    Vector3[] tempVerts = new Vector3[]{new Vector3(0.5f, 0, 0),
-                    new Vector3(1, 0, 0.5f),
-                    new Vector3(0.5f, 0, 1),
-                    new Vector3(0, 0, 0.5f),
-                    new Vector3(0.5f, 1, 0),
-                    new Vector3(1, 0, 0.5f),
-                    new Vector3(0.5f, 1, 1),
-                    new Vector3(0, 0, 0.5f),
-                    new Vector3(0, 0.5f, 0),
-                    new Vector3(1, 0.5f, 0),
-                    new Vector3(1, 0.5f, 1),
-                    new Vector3(0, 0.5f, 1)};
+	Vector3[] tempVerts = new Vector3[]{new Vector3(0, 0, 0.5f),
+		new Vector3(0.5f, 0, 1),
+		new Vector3(1, 0, 0.5f),
+		new Vector3(0.5f, 0, 0),
+		new Vector3(0, 1, 0.5f),
+		new Vector3(0.5f, 1, 1),
+		new Vector3(1, 1, 0.5f),
+		new Vector3(0.5f, 1, 0),
+        new Vector3(0, 0.5f, 0),
+        new Vector3(0, 0.5f, 1),
+        new Vector3(1, 0.5f, 1),
+        new Vector3(1, 0.5f, 0)};
 
     void Start(){
         Generate();
@@ -45,10 +46,11 @@ public class TerrainGenerator : MonoBehaviour
         for(int x = 0; x < size; x++){
             for(int y = 0; y < height; y++){
                 for(int z = 0; z < size; z++){
-                    vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, size, height, detail, amount);
-                    if(vertices[x, y, z] == 1){
-                        Instantiate(sphere, new Vector3(x, y, z), Quaternion.identity);
-                    }
+					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == size - 1){
+						vertices[x, y, z] = 0;
+					}else{
+						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, size, height, detail, amount);
+					}
                 }
             }
         }
@@ -56,33 +58,42 @@ public class TerrainGenerator : MonoBehaviour
             for(int y = 0; y < height - 1; y++){
                 for(int z = 0; z < size - 1; z++){
                     triList = new List<int>();
+					triReList = new List<int>();
                     for(int i = 0; i < 16; i++){
-                        pointPos = LookUpTable.triTable[vertices[x, y + 1, z + 1] * 128 +
-                        vertices[x + 1, y + 1, z + 1] * 64 +
-                        vertices[x + 1, y + 1, z + 1] * 32 +
-                        vertices[x, y + 1, z] * 16 +
-                        vertices[x, y, z + 1] * 8 +
-                        vertices[x + 1, y, z + 1] * 4 +
-                        vertices[x + 1, y, z] * 2 +
-                        vertices[x, y, z], i];
+						pointPos = LookUpTable.triTable[vertices[x + 1, y + 1, z] * 128 +
+	                        vertices[x + 1, y + 1, z + 1] * 64 +
+							vertices[x, y + 1, z + 1] * 32 +
+	                        vertices[x, y + 1, z] * 16 +
+							vertices[x + 1, y, z] * 8 +	
+	                        vertices[x + 1, y, z + 1] * 4 +
+							vertices[x, y, z + 1] * 2 +
+	                        vertices[x, y, z], i];
                         if (pointPos > -1){
                             triList.Add(pointPos);
                         }
                     }
                     
+					for(int i = 0; i < triList.Count; i++){
+						if(i % 3 == 0){
+							triReList.Add(triList[i]);
+							triReList.Add(triList[i + 2]);
+							triReList.Add(triList[i + 1]);
+						}
+					}
+
                     mesh = new Mesh();
 
                     mesh.vertices = tempVerts;
-                    mesh.triangles = triList.ToArray();
+                    mesh.triangles = triReList.ToArray();
                     uvs = new Vector2[tempVerts.Length];
-                    for (int i = 0; i < uvs.Length; i++)
-                    {
+                    for (int i = 0; i < uvs.Length; i++){
                         uvs[i] = new Vector2(tempVerts[i].x, tempVerts[i].z);
                     }
                     mesh.uv = uvs;
-
-                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
-                    cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+					if(triReList.Count > 0){
+	                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
+	                    cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+					}
                 }
             }
         }
