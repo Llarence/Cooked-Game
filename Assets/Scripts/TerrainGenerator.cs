@@ -16,7 +16,20 @@ public class TerrainGenerator : MonoBehaviour
     List<int> triList;
     int pointPos;
     Mesh mesh;
-    Vector3[] tempVerts;
+    Vector2[] uvs;
+    public GameObject sphere;
+    Vector3[] tempVerts = new Vector3[]{new Vector3(0.5f, 0, 0),
+                    new Vector3(1, 0, 0.5f),
+                    new Vector3(0.5f, 0, 1),
+                    new Vector3(0, 0, 0.5f),
+                    new Vector3(0.5f, 1, 0),
+                    new Vector3(1, 0, 0.5f),
+                    new Vector3(0.5f, 1, 1),
+                    new Vector3(0, 0, 0.5f),
+                    new Vector3(0, 0.5f, 0),
+                    new Vector3(1, 0.5f, 0),
+                    new Vector3(1, 0.5f, 1),
+                    new Vector3(0, 0.5f, 1)};
 
     void Start(){
         Generate();
@@ -33,6 +46,9 @@ public class TerrainGenerator : MonoBehaviour
             for(int y = 0; y < height; y++){
                 for(int z = 0; z < size; z++){
                     vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, size, height, detail, amount);
+                    if(vertices[x, y, z] == 1){
+                        Instantiate(sphere, new Vector3(x, y, z), Quaternion.identity);
+                    }
                 }
             }
         }
@@ -41,36 +57,29 @@ public class TerrainGenerator : MonoBehaviour
                 for(int z = 0; z < size - 1; z++){
                     triList = new List<int>();
                     for(int i = 0; i < 16; i++){
-                        pointPos = LookUpTable.triTable[vertices[x, y + 1, z] * 128 +
-                        vertices[x, y + 1, z + 1] * 64 +
+                        pointPos = LookUpTable.triTable[vertices[x, y + 1, z + 1] * 128 +
+                        vertices[x + 1, y + 1, z + 1] * 64 +
                         vertices[x + 1, y + 1, z + 1] * 32 +
-                        vertices[x + 1, y + 1, z] * 16 +
-                        vertices[x, y, z] * 8 +
-                        vertices[x, y, z + 1] * 4 +
-                        vertices[x + 1, y, z + 1] * 2 +
-                        vertices[x + 1, y , z], i];
+                        vertices[x, y + 1, z] * 16 +
+                        vertices[x, y, z + 1] * 8 +
+                        vertices[x + 1, y, z + 1] * 4 +
+                        vertices[x + 1, y, z] * 2 +
+                        vertices[x, y, z], i];
                         if (pointPos > -1){
                             triList.Add(pointPos);
                         }
                     }
-
-                    tempVerts = new Vector3[]{new Vector3(x, y + 0.5f, z),
-                    new Vector3(x + 1, y + 0.5f, z),
-                    new Vector3(x, y + 0.5f, z + 1),
-                    new Vector3(x + 1, y + 0.5f, z + 1),
-                    new Vector3(x + 0.5f, y, z),
-                    new Vector3(x + 0.5f, y + 1, z),
-                    new Vector3(x + 0.5f, y, z + 1),
-                    new Vector3(x + 0.5f, y + 1, z + 1),
-                    new Vector3(x, y, z + 0.5f),
-                    new Vector3(x, y + 1, z + 0.5f),
-                    new Vector3(x + 1, y + 1, z + 0.5f),
-                    new Vector3(x + 1, y + 1, z + 0.5f)};
                     
                     mesh = new Mesh();
-                    mesh.vertices = tempVerts;
 
+                    mesh.vertices = tempVerts;
                     mesh.triangles = triList.ToArray();
+                    uvs = new Vector2[tempVerts.Length];
+                    for (int i = 0; i < uvs.Length; i++)
+                    {
+                        uvs[i] = new Vector2(tempVerts[i].x, tempVerts[i].z);
+                    }
+                    mesh.uv = uvs;
 
                     cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
                     cubeInst.GetComponent<MeshFilter>().mesh = mesh;
