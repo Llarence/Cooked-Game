@@ -18,7 +18,6 @@ public class TerrainGenerator : MonoBehaviour
     int pointPos;
     Mesh mesh;
     Vector2[] uvs;
-	public Material[] mats;
 	Vector3[] tempVerts = new Vector3[]{new Vector3(0, 0, 0.5f),
 		new Vector3(0.5f, 0, 1),
 		new Vector3(1, 0, 0.5f),
@@ -32,6 +31,10 @@ public class TerrainGenerator : MonoBehaviour
         new Vector3(1, 0.5f, 1),
         new Vector3(1, 0.5f, 0)};
 	List<Vector3> permVerts;
+	List<int> finalTri;
+	List<Vector3> finalVerts;
+	Vector3 tempVert;
+	int totalI;
 
     void Start(){
         Generate();
@@ -55,6 +58,10 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
         }
+		mesh = new Mesh();
+		finalTri = new List<int>();
+		finalVerts = new List<Vector3>();
+		totalI = 0;
         for(int x = 0; x < size - 1; x++){
             for(int y = 0; y < height - 1; y++){
                 for(int z = 0; z < size - 1; z++){
@@ -77,28 +84,35 @@ public class TerrainGenerator : MonoBehaviour
                     
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
-							triReList.Add(i);
-							triReList.Add(i + 2);
-							triReList.Add(i + 1);
-							permVerts.Add(tempVerts[triList[i]]);
-							permVerts.Add(tempVerts[triList[i + 1]]);
-							permVerts.Add(tempVerts[triList[i + 2]]);
+							triReList.Add(totalI +i);
+							triReList.Add(totalI +i + 2);
+							triReList.Add(totalI +i + 1);
+							tempVert = tempVerts[triList[i]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							tempVert = tempVerts[triList[i + 1]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							tempVert = tempVerts[triList[i + 2]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
 						}
 					}
-
-                    mesh = new Mesh();
-
-					mesh.vertices = permVerts.ToArray();
-                    mesh.triangles = triReList.ToArray();
+					totalI += triList.Count;
+						
 					if(triReList.Count > 0){
-	                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
-	                    cubeInst.GetComponent<MeshFilter>().mesh = mesh;
-						cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-						cubeInst.GetComponent<MeshRenderer>().material = mats[Random.Range(0, mats.Length)];
+						foreach(Vector3 vect in permVerts){
+							finalVerts.Add(vect);
+						}
+						foreach(int i in triReList){
+							finalTri.Add(i);
+						}
 					}
                 }
             }
         }
+		mesh.vertices = finalVerts.ToArray();
+		mesh.triangles = finalTri.ToArray();
+		cubeInst = Instantiate(cube, new Vector3(0, 0, 0), Quaternion.identity);
+		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
     }
 
     //returns whether to spawn a cube or not
