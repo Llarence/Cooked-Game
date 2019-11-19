@@ -84,9 +84,9 @@ public class TerrainGenerator : MonoBehaviour
                     
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
-							triReList.Add(totalI +i);
-							triReList.Add(totalI +i + 2);
-							triReList.Add(totalI +i + 1);
+							triReList.Add(totalI + i);
+							triReList.Add(totalI + i + 2);
+							triReList.Add(totalI + i + 1);
 							tempVert = tempVerts[triList[i]];
 							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
 							tempVert = tempVerts[triList[i + 1]];
@@ -95,8 +95,28 @@ public class TerrainGenerator : MonoBehaviour
 							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
 						}
 					}
-					totalI += triList.Count;
 						
+					if(65500 < finalVerts.Count + permVerts.Count){
+						mesh.vertices = finalVerts.ToArray();
+						mesh.triangles = finalTri.ToArray();
+						triReList = new List<int>();
+						cubeInst = Instantiate(cube, new Vector3(0, 0, 0), Quaternion.identity);
+						cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+						cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+						mesh = new Mesh();
+						finalTri = new List<int>();
+						finalVerts = new List<Vector3>();
+						totalI = 0;
+						for(int i = 0; i < triList.Count; i++){
+							if(i % 3 == 0){
+								triReList.Add(totalI + i);
+								triReList.Add(totalI + i + 2);
+								triReList.Add(totalI + i + 1);
+							}
+						}
+					}
+					totalI += triList.Count;
+
 					if(triReList.Count > 0){
 						foreach(Vector3 vect in permVerts){
 							finalVerts.Add(vect);
@@ -146,4 +166,6 @@ public class TerrainGenerator : MonoBehaviour
             return 0;
         }
     }
+
+
 }
