@@ -85,14 +85,10 @@ public class TerrainGenerator : MonoBehaviour
 
                     mesh.vertices = tempVerts;
                     mesh.triangles = triReList.ToArray();
-                    uvs = new Vector2[tempVerts.Length];
-                    for (int i = 0; i < uvs.Length; i++){
-                        uvs[i] = new Vector2(tempVerts[i].x, tempVerts[i].z);
-                    }
-                    mesh.uv = uvs;
 					if(triReList.Count > 0){
 	                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);
 	                    cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+						cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
 						cubeInst.GetComponent<MeshRenderer>().material = mats[Random.Range(0, mats.Length)];
 					}
                 }
