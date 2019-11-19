@@ -31,6 +31,7 @@ public class TerrainGenerator : MonoBehaviour
         new Vector3(0, 0.5f, 1),
         new Vector3(1, 0.5f, 1),
         new Vector3(1, 0.5f, 0)};
+	List<Vector3> permVerts;
 
     void Start(){
         Generate();
@@ -59,6 +60,7 @@ public class TerrainGenerator : MonoBehaviour
                 for(int z = 0; z < size - 1; z++){
                     triList = new List<int>();
 					triReList = new List<int>();
+					permVerts = new List<Vector3>();
                     for(int i = 0; i < 16; i++){
 						pointPos = LookUpTable.triTable[vertices[x + 1, y + 1, z] * 128 +
 	                        vertices[x + 1, y + 1, z + 1] * 64 +
@@ -75,15 +77,18 @@ public class TerrainGenerator : MonoBehaviour
                     
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
-							triReList.Add(triList[i]);
-							triReList.Add(triList[i + 2]);
-							triReList.Add(triList[i + 1]);
+							triReList.Add(i);
+							triReList.Add(i + 2);
+							triReList.Add(i + 1);
+							permVerts.Add(tempVerts[triList[i]]);
+							permVerts.Add(tempVerts[triList[i + 1]]);
+							permVerts.Add(tempVerts[triList[i + 2]]);
 						}
 					}
 
                     mesh = new Mesh();
 
-                    mesh.vertices = tempVerts;
+					mesh.vertices = permVerts.ToArray();
                     mesh.triangles = triReList.ToArray();
 					if(triReList.Count > 0){
 	                    cubeInst = Instantiate(cube, new Vector3(x, y, z), Quaternion.identity);

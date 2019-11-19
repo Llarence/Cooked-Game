@@ -314,6 +314,4 @@ MonoBehaviour:
   amount: 0.3
   cube: {fileID: 3981699183463613060, guid: 8a5e9653ca27ea446bef4495fa376979, type: 3}
   mats:
-  - {fileID: 2100000, guid: e1103533b803c4346a1f7986847fa5dc, type: 2}
-  - {fileID: 2100000, guid: d272be8ddb1cb3f4aaa998151d8c0c74, type: 2}
-  - {fileID: 2100000, guid: 8cd3f035f9ca961418312f84e71f4baa, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
