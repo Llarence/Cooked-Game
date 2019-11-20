@@ -50,7 +50,7 @@ public class TerrainGenerator : MonoBehaviour
         for(int x = 0; x < size; x++){
             for(int y = 0; y < height; y++){
                 for(int z = 0; z < size; z++){
-					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == size - 1){
+					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == height - 1){
 						vertices[x, y, z] = 0;
 					}else{
 						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, size, height, detail, amount);
