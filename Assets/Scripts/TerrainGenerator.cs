@@ -104,6 +104,7 @@ public class TerrainGenerator : MonoBehaviour
 						mesh.triangles = finalTri.ToArray();
 						triReList = new List<int>();
 						cubeInst = Instantiate(cube, new Vector3(0, 0, 0), Quaternion.identity);
+						cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
 						cubeInst.GetComponent<MeshFilter>().mesh = mesh;
 						cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
 						mesh = new Mesh();
@@ -136,6 +137,7 @@ public class TerrainGenerator : MonoBehaviour
 		mesh.vertices = finalVerts.ToArray();
 		mesh.triangles = finalTri.ToArray();
 		cubeInst = Instantiate(cube, new Vector3(0, 0, 0), Quaternion.identity);
+		cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
     }
