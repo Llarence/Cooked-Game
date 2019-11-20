@@ -45,7 +45,7 @@ public class TerrainGenerator : MonoBehaviour
         float xOffset = Random.Range(-1000f, 1000f);
         float zOffset = Random.Range(-1000f, 1000f);
 
-        //loops through all possible points and spawns a cubes where it should
+        //loops through all possible points and says where ground should be
         vertices = new int[size, height, size];
         for(int x = 0; x < size; x++){
             for(int y = 0; y < height; y++){
@@ -65,6 +65,7 @@ public class TerrainGenerator : MonoBehaviour
         for(int x = 0; x < size - 1; x++){
             for(int y = 0; y < height - 1; y++){
                 for(int z = 0; z < size - 1; z++){
+					//gets the triangle points form the look up table
                     triList = new List<int>();
 					triReList = new List<int>();
 					permVerts = new List<Vector3>();
@@ -82,6 +83,7 @@ public class TerrainGenerator : MonoBehaviour
                         }
                     }
                     
+					//makes traingles face outwards and adds the vertices for the traingles
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
 							triReList.Add(totalI + i);
@@ -95,7 +97,8 @@ public class TerrainGenerator : MonoBehaviour
 							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
 						}
 					}
-						
+
+					//if the mesh is more than about the max vertices then it starts a new mesh and finishes the last one
 					if(65500 < finalVerts.Count + permVerts.Count){
 						mesh.vertices = finalVerts.ToArray();
 						mesh.triangles = finalTri.ToArray();
@@ -117,6 +120,7 @@ public class TerrainGenerator : MonoBehaviour
 					}
 					totalI += triList.Count;
 
+					//add the triangles and vertices to the final lists
 					if(triReList.Count > 0){
 						foreach(Vector3 vect in permVerts){
 							finalVerts.Add(vect);
@@ -128,6 +132,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
         }
+		//adds the final lists to the final mesh
 		mesh.vertices = finalVerts.ToArray();
 		mesh.triangles = finalTri.ToArray();
 		cubeInst = Instantiate(cube, new Vector3(0, 0, 0), Quaternion.identity);
