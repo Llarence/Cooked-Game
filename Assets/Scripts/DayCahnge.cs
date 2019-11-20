@@ -6,6 +6,6 @@ public class DayCahnge : MonoBehaviour
 {
 	void Update(){
 		//full day cycle 6 minutes
-		transform.Rotate(0, Time.deltaTime, 0);
+		transform.Rotate(Time.deltaTime, 0, 0);
     }
 }
