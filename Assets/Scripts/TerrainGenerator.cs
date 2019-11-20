@@ -58,6 +58,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
         }
+
 		mesh = new Mesh();
 		finalTri = new List<int>();
 		finalVerts = new List<Vector3>();
