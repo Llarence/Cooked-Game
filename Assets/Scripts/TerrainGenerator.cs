@@ -164,7 +164,7 @@ public class TerrainGenerator : MonoBehaviour
         ABC /= 6;
 
         //checks if the cube is in a spawn zone
-        // y * heightDet makes it so as the y gets bigger the chance of spawn gets smaller
+        //y * heightDet makes it so as the y gets bigger the chance of spawn gets smaller
         if(ABC > amou + y * heightDet){
             return 1;
         }else{
