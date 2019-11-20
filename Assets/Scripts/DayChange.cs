@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayCahnge : MonoBehaviour
+public class DayChange : MonoBehaviour
 {
 	void Update(){
 		//full day cycle 6 minutes
