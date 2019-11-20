@@ -171,6 +171,4 @@ public class TerrainGenerator : MonoBehaviour
             return 0;
         }
     }
-
-
 }
