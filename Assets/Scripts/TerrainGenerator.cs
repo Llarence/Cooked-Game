@@ -53,7 +53,7 @@ public class TerrainGenerator : MonoBehaviour
 					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == height - 1){
 						vertices[x, y, z] = 0;
 					}else{
-						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, size, height, detail, amount);
+						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeterioration, detail, amount);
 					}
                 }
             }
@@ -83,7 +83,7 @@ public class TerrainGenerator : MonoBehaviour
                             triList.Add(pointPos);
                         }
                     }
-                    
+
 					//makes traingles face outwards and adds the vertices for the traingles
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
@@ -144,11 +144,11 @@ public class TerrainGenerator : MonoBehaviour
     }
 
     //returns whether to spawn a cube or not
-    int GenerationFunction(float x, float y, float z, float xOff, float zOff, float heightDet, int size, int height, float deta, float amou){
+    int GenerationFunction(float x, float y, float z, float xOff, float zOff, float heightDet,float deta, float amou){
         //sets up x, y, and z
-        x = x / size * deta;
-        y = y / height * deta;
-        z = z / size * deta;
+        x = x * deta;
+        y = y * deta;
+        z = z * deta;
 
         //adds offset
         x += xOff;
