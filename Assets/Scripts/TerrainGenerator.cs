@@ -171,8 +171,8 @@ public class TerrainGenerator : MonoBehaviour
         //checks if the cube is in a spawn zone
         //y * heightDet makes it so as the y gets bigger the chance of spawn gets smaller
 		//there is a hold of on the heightDet by the top if statment
-		if(y >= heightDetBeg){
-			if(ABC > amou + (y - heightDetBeg) * (heightDet + heightDetStartVal)){
+		if(y / deta >= heightDetBeg){
+			if(ABC > amou + (((y / deta) - heightDetBeg) * heightDet) + heightDetStartVal){
 	            return 1;
 	        }else{
 	            return 0;
