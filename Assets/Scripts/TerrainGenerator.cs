@@ -12,6 +12,7 @@ public class TerrainGenerator : MonoBehaviour
     public float amount;
 	public float heightDeteriorationStartVal;
 	public int heightDeteriorationBeginning;
+	public int heighDeteriorationPrepStart;
     public GameObject cube;
     GameObject cubeInst;
     int[,,] vertices;
@@ -55,7 +56,7 @@ public class TerrainGenerator : MonoBehaviour
 					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == height - 1){
 						vertices[x, y, z] = 0;
 					}else{
-						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeteriorationBeginning, heightDeteriorationStartVal, heightDeterioration, detail, amount);
+						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeteriorationBeginning, heightDeteriorationStartVal, heightDeterioration, heighDeteriorationPrepStart, detail, amount);
 					}
                 }
             }
@@ -146,7 +147,7 @@ public class TerrainGenerator : MonoBehaviour
     }
 
     //returns whether to spawn a cube or not one is yes, zero is no
-    int GenerationFunction(float x, float y, float z, float xOff, float zOff, int heightDetBeg, float heightDetStartVal, float heightDet,float deta, float amou){
+	int GenerationFunction(float x, float y, float z, float xOff, float zOff, int heightDetBeg, float heightDetStartVal, float heightDet, int heightDetPrepStart, float deta, float amou){
         //sets up x, y, and z
         x = x * deta;
         y = y * deta;
@@ -171,12 +172,21 @@ public class TerrainGenerator : MonoBehaviour
         //checks if the cube is in a spawn zone
         //y * heightDet makes it so as the y gets bigger the chance of spawn gets smaller
 		//there is a hold of on the heightDet by the top if statment
-		if(y / deta >= heightDetBeg){
-			if(ABC > amou + (((y / deta) - heightDetBeg) * heightDet) + heightDetStartVal){
-	            return 1;
-	        }else{
-	            return 0;
-	        }
+		if(y / deta >= heightDetPrepStart){
+			if(y / deta >= heightDetBeg){
+				if(ABC > amou + (((y / deta) - heightDetBeg) * heightDet) + heightDetStartVal){
+		            return 1;
+		        }else{
+		            return 0;
+				}
+			}else{
+				//make cave to surface transition smooth
+				if(ABC > amou + (((y / deta) - heightDetPrepStart) * (heightDetStartVal / (heightDetBeg - heightDetPrepStart)))){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
 		}else{
 			if(ABC > amou){
 				return 1;

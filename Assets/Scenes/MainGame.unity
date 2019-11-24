@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34cb30815c72cf24382451ed524f7c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,8 +324,9 @@ MonoBehaviour:
   size: 300
   height: 150
   detail: 0.05
-  heightDeterioration: 0.01
+  heightDeterioration: 0.02
   amount: 0.4
   heightDeteriorationStartVal: 0.08
   heightDeteriorationBeginning: 100
+  heighDeteriorationPrepStart: 90
   cube: {fileID: 3981699183463613060, guid: 8a5e9653ca27ea446bef4495fa376979, type: 3}

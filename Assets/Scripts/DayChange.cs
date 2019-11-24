@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DayChange : MonoBehaviour
 {
+	public float speed;
+
 	void Update(){
 		//full day cycle 6 minutes
-		transform.Rotate(Time.deltaTime, 0, 0);
+		transform.Rotate(Time.deltaTime * speed, 0, 0);
 		//make sure lighting doesn't shine upsidedown
 		if(transform.eulerAngles.x >= 265 && transform.eulerAngles.x <= 355){
 			GetComponent<Light>().intensity = 0;
