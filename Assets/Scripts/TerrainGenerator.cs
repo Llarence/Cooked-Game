@@ -14,7 +14,6 @@ public class TerrainGenerator : MonoBehaviour
 	public int heightDeteriorationBeginning;
 	public int heighDeteriorationPrepStart;
 	public GameObject terrain;
-    int[,,] vertices;
 	int size;
 
     void Start(){
@@ -28,11 +27,13 @@ public class TerrainGenerator : MonoBehaviour
         float zOffset = Random.Range(-1000f, 1000f);
 
         //loops through all possible points and says where ground should be
-        vertices = new int[size, height, size];
+        int[,,] vertices = new int[size, height, size];
         for(int x = 0; x < size; x++){
             for(int y = 0; y < height; y++){
                 for(int z = 0; z < size; z++){
-					if(x == 0 || x == size - 1 || z == 0 || z == size - 1 || y == 0 || y == height - 1){
+					if(y == 0){
+						vertices[x, y, z] = 1;
+					}else if(y == size - 1){
 						vertices[x, y, z] = 0;
 					}else{
 						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeteriorationBeginning, heightDeteriorationStartVal, heightDeterioration, heighDeteriorationPrepStart, detail, amount);
@@ -40,8 +41,11 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
 		}
-
-		GenerateTerrain();
+		for(int xOfChunk = 0; xOfChunk < chunks - 1; xOfChunk++){
+			for(int zOfChunk = 0; zOfChunk < chunks - 1; zOfChunk++){
+				GenerateChunk(xOfChunk, zOfChunk, vertices);
+			}
+		}
     }
 
     //returns whether to spawn a ground or not one is yes, zero is no
@@ -94,7 +98,7 @@ public class TerrainGenerator : MonoBehaviour
 		}
     }
 
-	void GenerateTerrain(){
+	void GenerateChunk(int xOfChunk, int zOfChunk, int[,,] vertices){
 		GameObject cubeInst;
 		List<int> triReList;
 		List<int> triList;
@@ -123,74 +127,70 @@ public class TerrainGenerator : MonoBehaviour
 		finalTri = new List<int>();
 		finalVerts = new List<Vector3>();
 		totalI = 0;
-		for(int xOfChunk = 0; xOfChunk < chunks - 1; xOfChunk++){
-			for(int zOfChunk = 0; zOfChunk < chunks - 1; zOfChunk++){
-				for(int chunkX = 0; chunkX < 16; chunkX++){
-					for(int chunkZ = 0; chunkZ < 16; chunkZ++){
-						for(int y = 0; y < height - 1; y++){
-							//sets up x and z
-							x = xOfChunk * 16 + chunkX;
-							z = zOfChunk * 16 + chunkZ;
+		for(int chunkX = 0; chunkX < 16; chunkX++){
+			for(int chunkZ = 0; chunkZ < 16; chunkZ++){
+				for(int y = 0; y < height - 1; y++){
+					//sets up x and z
+					x = xOfChunk * 16 + chunkX;
+					z = zOfChunk * 16 + chunkZ;
 
-							//gets the triangle points form the look up table
-							triList = new List<int>();
-							triReList = new List<int>();
-							permVerts = new List<Vector3>();
-							for(int i = 0; i < 16; i++){
-								pointPos = LookUpTable.triTable[vertices[x + 1, y + 1, z] * 128 +
-									vertices[x + 1, y + 1, z + 1] * 64 +
-									vertices[x, y + 1, z + 1] * 32 +
-									vertices[x, y + 1, z] * 16 +
-									vertices[x + 1, y, z] * 8 +	
-									vertices[x + 1, y, z + 1] * 4 +
-									vertices[x, y, z + 1] * 2 +
-									vertices[x, y, z], i];
-								if (pointPos > -1){
-									triList.Add(pointPos);
-								}
-							}
+					//gets the triangle points form the look up table
+					triList = new List<int>();
+					triReList = new List<int>();
+					permVerts = new List<Vector3>();
+					for(int i = 0; i < 16; i++){
+						pointPos = LookUpTable.triTable[vertices[x + 1, y + 1, z] * 128 +
+							vertices[x + 1, y + 1, z + 1] * 64 +
+							vertices[x, y + 1, z + 1] * 32 +
+							vertices[x, y + 1, z] * 16 +
+							vertices[x + 1, y, z] * 8 +	
+							vertices[x + 1, y, z + 1] * 4 +
+							vertices[x, y, z + 1] * 2 +
+							vertices[x, y, z], i];
+						if (pointPos > -1){
+							triList.Add(pointPos);
+						}
+					}
 
-							//makes traingles face outwards and adds the vertices for the traingles
-							for(int i = 0; i < triList.Count; i++){
-								if(i % 3 == 0){
-									triReList.Add(totalI + i);
-									triReList.Add(totalI + i + 2);
-									triReList.Add(totalI + i + 1);
-									tempVert = tempVerts[triList[i]];
-									permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
-									tempVert = tempVerts[triList[i + 1]];
-									permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
-									tempVert = tempVerts[triList[i + 2]];
-									permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
-								}
-							}
-							totalI += triList.Count;
+					//makes traingles face outwards and adds the vertices for the traingles
+					for(int i = 0; i < triList.Count; i++){
+						if(i % 3 == 0){
+							triReList.Add(totalI + i);
+							triReList.Add(totalI + i + 2);
+							triReList.Add(totalI + i + 1);
+							tempVert = tempVerts[triList[i]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							tempVert = tempVerts[triList[i + 1]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							tempVert = tempVerts[triList[i + 2]];
+							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+						}
+					}
+					totalI += triList.Count;
 
-							//add the triangles and vertices to the final lists
-							if(triReList.Count > 0){
-								foreach(Vector3 vect in permVerts){
-									finalVerts.Add(vect);
-								}
-								foreach(int i in triReList){
-									finalTri.Add(i);
-								}
-							}
+					//add the triangles and vertices to the final lists
+					if(triReList.Count > 0){
+						foreach(Vector3 vect in permVerts){
+							finalVerts.Add(vect);
+						}
+						foreach(int i in triReList){
+							finalTri.Add(i);
 						}
 					}
 				}
-				//starts new chunk
-				mesh.vertices = finalVerts.ToArray();
-				mesh.triangles = finalTri.ToArray();
-				triReList = new List<int>();
-				cubeInst = Instantiate(terrain, new Vector3(0, 0, 0), Quaternion.identity);
-				cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
-				cubeInst.GetComponent<MeshFilter>().mesh = mesh;
-				cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-				mesh = new Mesh();
-				finalTri = new List<int>();
-				finalVerts = new List<Vector3>();
-				totalI = 0;
 			}
-        }
+		}
+		//starts new chunk
+		mesh.vertices = finalVerts.ToArray();
+		mesh.triangles = finalTri.ToArray();
+		triReList = new List<int>();
+		cubeInst = Instantiate(terrain, new Vector3(0, 0, 0), Quaternion.identity);
+		cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
+		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
+		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+		mesh = new Mesh();
+		finalTri = new List<int>();
+		finalVerts = new List<Vector3>();
+		totalI = 0;
 	}
 }
