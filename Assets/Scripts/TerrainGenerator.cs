@@ -5,7 +5,7 @@ using UnityEngine;
 public class TerrainGenerator : MonoBehaviour
 {
 
-    public int chunks;
+    public int chunkDistance;
     public int height;
     public float detail;
     public float heightDeterioration;
@@ -14,42 +14,39 @@ public class TerrainGenerator : MonoBehaviour
 	public int heightDeteriorationBeginning;
 	public int heighDeteriorationPrepStart;
 	public GameObject terrain;
-	int size;
 
     void Start(){
-		size = chunks * 16;
-        Generate();
-    }
-
-    void Generate(){
-        //sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
+		//sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
         float xOffset = Random.Range(-1000f, 1000f);
         float zOffset = Random.Range(-1000f, 1000f);
-
-        //loops through all possible points and says where ground should be
-        int[,,] vertices = new int[size, height, size];
-        for(int x = 0; x < size; x++){
-            for(int y = 0; y < height; y++){
-                for(int z = 0; z < size; z++){
-					if(y == 0){
-						vertices[x, y, z] = 1;
-					}else if(y == size - 1){
-						vertices[x, y, z] = 0;
-					}else{
-						vertices[x, y, z] = GenerationFunction((float)x, (float)y, (float)z, xOffset, zOffset, heightDeteriorationBeginning, heightDeteriorationStartVal, heightDeterioration, heighDeteriorationPrepStart, detail, amount);
-					}
-                }
-            }
-		}
-		for(int xOfChunk = 0; xOfChunk < chunks - 1; xOfChunk++){
-			for(int zOfChunk = 0; zOfChunk < chunks - 1; zOfChunk++){
-				GenerateChunk(xOfChunk, zOfChunk, vertices);
+		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
+            for(int z = -chunkDistance; z < chunkDistance + 1; z++){
+        		GenerateChunk(xOffset, zOffset, x, z);
 			}
 		}
     }
 
+    void GenerateChunk(float xOffset, float zOffset, int xOfChunk, int zOfChunk){
+        //loops through all possible points and says where ground should be
+        int[,,] vertices = new int[17, height, 17];
+        for(int x = 0; x < 17; x++){
+			for(int z = 0; z < 17; z++){
+            	for(int y = 0; y < height; y++){
+					if(y == 0){
+						vertices[x, y, z] = 1;
+					}else if(y == height - 1){
+						vertices[x, y, z] = 0;
+					}else{
+						vertices[x, y, z] = GenerationChunkData((float)(x + xOfChunk * 16), (float)y, (float)(z + zOfChunk * 16), xOffset, zOffset, heightDeteriorationBeginning, heightDeteriorationStartVal, heightDeterioration, heighDeteriorationPrepStart, detail, amount);
+					}
+                }
+            }
+		}
+		GenerateChunkMesh(xOfChunk, zOfChunk, vertices);
+    }
+
     //returns whether to spawn a ground or not one is yes, zero is no
-	int GenerationFunction(float x, float y, float z, float xOff, float zOff, int heightDetBeg, float heightDetStartVal, float heightDet, int heightDetPrepStart, float deta, float amou){
+	int GenerationChunkData(float x, float y, float z, float xOff, float zOff, int heightDetBeg, float heightDetStartVal, float heightDet, int heightDetPrepStart, float deta, float amou){
         //sets up x, y, and z
         x = x * deta;
         y = y * deta;
@@ -98,7 +95,7 @@ public class TerrainGenerator : MonoBehaviour
 		}
     }
 
-	void GenerateChunk(int xOfChunk, int zOfChunk, int[,,] vertices){
+	void GenerateChunkMesh(int xOfChunk, int zOfChunk, int[,,] vertices){
 		GameObject cubeInst;
 		List<int> triReList;
 		List<int> triList;
@@ -121,19 +118,13 @@ public class TerrainGenerator : MonoBehaviour
 		List<Vector3> finalVerts;
 		Vector3 tempVert;
 		int totalI;
-		int x = 0;
-		int z = 0;
 		mesh = new Mesh();
 		finalTri = new List<int>();
 		finalVerts = new List<Vector3>();
 		totalI = 0;
-		for(int chunkX = 0; chunkX < 16; chunkX++){
-			for(int chunkZ = 0; chunkZ < 16; chunkZ++){
+		for(int x = 0; x < 16; x++){
+			for(int z = 0; z < 16; z++){
 				for(int y = 0; y < height - 1; y++){
-					//sets up x and z
-					x = xOfChunk * 16 + chunkX;
-					z = zOfChunk * 16 + chunkZ;
-
 					//gets the triangle points form the look up table
 					triList = new List<int>();
 					triReList = new List<int>();
@@ -159,11 +150,11 @@ public class TerrainGenerator : MonoBehaviour
 							triReList.Add(totalI + i + 2);
 							triReList.Add(totalI + i + 1);
 							tempVert = tempVerts[triList[i]];
-							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							permVerts.Add(new Vector3(x + tempVert.x - 8, y + tempVert.y, z + tempVert.z - 8));
 							tempVert = tempVerts[triList[i + 1]];
-							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							permVerts.Add(new Vector3(x + tempVert.x - 8, y + tempVert.y, z + tempVert.z - 8));
 							tempVert = tempVerts[triList[i + 2]];
-							permVerts.Add(new Vector3(x + tempVert.x, y + tempVert.y, z + tempVert.z));
+							permVerts.Add(new Vector3(x + tempVert.x - 8, y + tempVert.y, z + tempVert.z - 8));
 						}
 					}
 					totalI += triList.Count;
@@ -184,7 +175,7 @@ public class TerrainGenerator : MonoBehaviour
 		mesh.vertices = finalVerts.ToArray();
 		mesh.triangles = finalTri.ToArray();
 		triReList = new List<int>();
-		cubeInst = Instantiate(terrain, new Vector3(0, 0, 0), Quaternion.identity);
+		cubeInst = Instantiate(terrain, new Vector3(xOfChunk * 16, 0, zOfChunk * 16), Quaternion.identity);
 		cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
