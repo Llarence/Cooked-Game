@@ -14,19 +14,46 @@ public class TerrainGenerator : MonoBehaviour
 	public int heightDeteriorationBeginning;
 	public int heighDeteriorationPrepStart;
 	public GameObject terrain;
+	public GameObject player;
+	Vector2 playerChunkPos;
+	float xOffset;
+    float zOffset;
+	List<GameObject> chunks = new List<GameObject>();
 
     void Start(){
 		//sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
-        float xOffset = Random.Range(-1000f, 1000f);
-        float zOffset = Random.Range(-1000f, 1000f);
-		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
-            for(int z = -chunkDistance; z < chunkDistance + 1; z++){
-        		GenerateChunk(xOffset, zOffset, x, z);
-			}
-		}
+        xOffset = Random.Range(-1000f, 1000f);
+        zOffset = Random.Range(-1000f, 1000f);
     }
 
-    void GenerateChunk(float xOffset, float zOffset, int xOfChunk, int zOfChunk){
+	void Update(){
+		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
+            for(int z = -chunkDistance; z < chunkDistance + 1; z++){
+				bool alreadySpawned = false;
+				foreach(GameObject chunk in chunks){
+					if((int)(chunk.transform.position.x / 16) == Mathf.RoundToInt(player.transform.position.x / 16) + x && (int)(chunk.transform.position.z / 16) == Mathf.RoundToInt(player.transform.position.z / 16) + z){
+						alreadySpawned = true;
+					}
+				}
+
+				if(!alreadySpawned){
+        			chunks.Add(GenerateChunk(Mathf.RoundToInt(player.transform.position.x / 16) + x, Mathf.RoundToInt(player.transform.position.z / 16) + z));
+				}
+			}
+		}
+
+		foreach(GameObject chunk in chunks.ToArray()){
+			if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkDistance || 
+			(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkDistance || 
+			(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkDistance || 
+			(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkDistance){
+				chunks.Remove(chunk);
+				Destroy(chunk);
+			}
+		}
+	}
+
+    GameObject GenerateChunk(int xOfChunk, int zOfChunk){
         //loops through all possible points and says where ground should be
         int[,,] vertices = new int[17, height, 17];
         for(int x = 0; x < 17; x++){
@@ -42,7 +69,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
 		}
-		GenerateChunkMesh(xOfChunk, zOfChunk, vertices);
+		return GenerateChunkMesh(xOfChunk, zOfChunk, vertices);
     }
 
     //returns whether to spawn a ground or not one is yes, zero is no
@@ -95,7 +122,7 @@ public class TerrainGenerator : MonoBehaviour
 		}
     }
 
-	void GenerateChunkMesh(int xOfChunk, int zOfChunk, int[,,] vertices){
+	GameObject GenerateChunkMesh(int xOfChunk, int zOfChunk, int[,,] vertices){
 		GameObject cubeInst;
 		List<int> triReList;
 		List<int> triList;
@@ -179,9 +206,6 @@ public class TerrainGenerator : MonoBehaviour
 		cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
 		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-		mesh = new Mesh();
-		finalTri = new List<int>();
-		finalVerts = new List<Vector3>();
-		totalI = 0;
+		return cubeInst;
 	}
 }
