@@ -15,11 +15,9 @@ public class TerrainGenerator : MonoBehaviour
 	public int heighDeteriorationPrepStart;
 	public GameObject terrain;
 	public GameObject player;
-	Vector3 playerChunkPos;
 	float xOffset;
     float zOffset;
 	List<GameObject> chunks = new List<GameObject>();
-	List<Vector3> chunkPoses = new List<Vector3>();
 
     void Start(){
 		//sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
@@ -29,43 +27,39 @@ public class TerrainGenerator : MonoBehaviour
     }
 
 	void Update(){
-		if(playerChunkPos.x != Mathf.RoundToInt(player.transform.position.x / 16) || playerChunkPos.z != Mathf.RoundToInt(player.transform.position.z / 16)){
-			playerChunkPos = new Vector3(Mathf.RoundToInt(player.transform.position.z / 16), 0, Mathf.RoundToInt(player.transform.position.z / 16));
-			UpdateChunks();
-		}
+		UpdateChunks();
 	}
 
 	void UpdateChunks(){
 		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
             for(int z = -chunkDistance; z < chunkDistance + 1; z++){
 				bool alreadySpawned = false;
-				foreach(Vector3 chunk in chunkPoses){
-					if((int)(chunk.x / 16) == Mathf.RoundToInt(playerChunkPos.x / 16) + x && (int)(chunk.z / 16) == Mathf.RoundToInt(playerChunkPos.z / 16) + z){
+				foreach(GameObject chunk in chunks){
+					if((int)(chunk.transform.position.x / 16) == Mathf.RoundToInt(player.transform.position.x / 16) + x && (int)(chunk.transform.position.z / 16) == Mathf.RoundToInt(player.transform.position.z / 16) + z){
 						alreadySpawned = true;
 					}
 				}
+
 				if(!alreadySpawned){
-					chunkPoses.Add(new Vector3((Mathf.RoundToInt(playerChunkPos.x / 16) + x) * 16, 0, (Mathf.RoundToInt(playerChunkPos.x / 16) + z) * 16));
-        			chunks.Add(GenerateChunk(Mathf.RoundToInt(playerChunkPos.x / 16) + x, Mathf.RoundToInt(playerChunkPos.z / 16) + z));
+        			chunks.Add(GenerateChunk(Mathf.RoundToInt(player.transform.position.x / 16) + x, Mathf.RoundToInt(player.transform.position.z / 16) + z));
 				}
 			}
 		}
-		foreach(Vector3 chunk in chunkPoses.ToArray()){
-			if((int)(chunk.x / 16) > Mathf.RoundToInt(playerChunkPos.x / 16) + chunkDistance * 10 || 
-			(int)(chunk.x / 16) < Mathf.RoundToInt(playerChunkPos.x / 16) - chunkDistance * 10 || 
-			(int)(chunk.z / 16) > Mathf.RoundToInt(playerChunkPos.z / 16) + chunkDistance * 10 || 
-			(int)(chunk.z / 16) < Mathf.RoundToInt(playerChunkPos.z / 16) - chunkDistance * 10){
-				chunks.Remove(chunks[chunkPoses.IndexOf(chunk)]);
-				Destroy(chunks[chunkPoses.IndexOf(chunk)]);
-				chunkPoses.Remove(chunk);
+		foreach(GameObject chunk in chunks.ToArray()){
+			if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + (chunkDistance * 16) || 
+			(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - (chunkDistance * 16) || 
+			(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + (chunkDistance * 16) || 
+			(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - (chunkDistance * 16)){
+				chunks.Remove(chunk);
+				Destroy(chunk);
 			}else{
-				if((int)(chunk.x / 16) > Mathf.RoundToInt(playerChunkPos.x / 16) + chunkDistance || 
-				(int)(chunk.x / 16) < Mathf.RoundToInt(playerChunkPos.x / 16) - chunkDistance || 
-				(int)(chunk.z / 16) > Mathf.RoundToInt(playerChunkPos.z / 16) + chunkDistance || 
-				(int)(chunk.z / 16) < Mathf.RoundToInt(playerChunkPos.z / 16) - chunkDistance){
-					chunks[chunkPoses.IndexOf(chunk)].SetActive(false);
+				if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkDistance || 
+				(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkDistance || 
+				(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkDistance || 
+				(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkDistance){
+					chunk.SetActive(false);
 				}else{
-					chunks[chunkPoses.IndexOf(chunk)].SetActive(true);
+					chunk.SetActive(true);
 				}
 			}
 		}
