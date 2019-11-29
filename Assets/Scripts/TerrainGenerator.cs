@@ -59,15 +59,30 @@ public class TerrainGenerator : MonoBehaviour
 		//loops through all the current finished terrain data
 		meshDataAndPos[] meshesAndPosesArr = meshesAndPoses.ToArray();
 		if(meshesAndPosesArr.Length > 0){
-			//creates an object and adds the data
+			//creates an object
 			GameObject terr = Instantiate(terrain, meshesAndPosesArr[0].pos, Quaternion.identity);
+
+			//sets up the mesh data and adds data
 			Mesh mesh = new Mesh();
 			mesh.vertices = meshesAndPosesArr[0].verts;
 			mesh.triangles = meshesAndPosesArr[0].tris;
+
+			//makes and sets uvs
+			Vector2[] uvs = new Vector2[meshesAndPosesArr[0].verts.Length];
+			for (int i = 0; i < uvs.Length; i++)
+			{
+				uvs[i] = new Vector2(meshesAndPosesArr[0].verts[i].x, meshesAndPosesArr[0].verts[i].z);
+			}
+			mesh.uv = uvs;
+
+			//sets up the data
 			terr.GetComponent<MeshFilter>().mesh = mesh;
 			terr.GetComponent<MeshFilter>().mesh.RecalculateNormals();
 			terr.GetComponent<MeshCollider>().sharedMesh = mesh;
+
+			//updates chunk list
 			chunks.Add(terr);
+
 			//removes the data
 			meshesAndPoses.TryDequeue(out meshesAndPosesArr[0]);
 		}
