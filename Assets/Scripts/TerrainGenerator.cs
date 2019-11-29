@@ -12,7 +12,11 @@ class meshDataAndPos{
 
 public class TerrainGenerator : MonoBehaviour
 {
-    public int chunkDistance;
+    public int chunkEnableDistance;
+	public int chunkCalculateDistance;
+	public int chunkDestroyDistance;
+	public int waitForFrames;
+	int frame;
     public int height;
     public float detail;
     public float heightDeterioration;
@@ -27,65 +31,93 @@ public class TerrainGenerator : MonoBehaviour
 	List<GameObject> chunks = new List<GameObject>();
 	List<Vector3> chunkPoses = new List<Vector3>();
 	ConcurrentQueue<meshDataAndPos> meshesAndPoses = new ConcurrentQueue<meshDataAndPos>();
-	int threads = 0;
 
     void Start(){
 		//sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
         xOffset = Random.Range(-1000f, 1000f);
         zOffset = Random.Range(-1000f, 1000f);
+		//Starts map
+		UpdateChunks(false);
+		foreach(meshDataAndPos mAndP in meshesAndPoses.ToArray()){
+			SpawnChunk();
+		}
     }
 
 	void Update(){
-		UpdateChunks();
-		SpawnChunks();
+		//threads can't create unity objects so this goes throught the queue of chunks
+		//are done calculating and spawns them
+		frame++;
+		if(waitForFrames < frame){
+			frame = 0;
+			SpawnChunk();
+		}
+		//checks which chunks need to be loaded calculated and starts a thread
+		UpdateChunks(true);
 	}
 
-	void SpawnChunks(){
+	void SpawnChunk(){
+		//loops through all the current finished terrain data
 		meshDataAndPos[] meshesAndPosesArr = meshesAndPoses.ToArray();
-		for(int i = 0; i < meshesAndPosesArr.Length; i++){
-			GameObject terr = Instantiate(terrain, meshesAndPosesArr[i].pos, Quaternion.identity);
+		if(meshesAndPosesArr.Length > 0){
+			//creates an object and adds the data
+			GameObject terr = Instantiate(terrain, meshesAndPosesArr[0].pos, Quaternion.identity);
 			Mesh mesh = new Mesh();
-			mesh.vertices = meshesAndPosesArr[i].verts;
-			mesh.triangles = meshesAndPosesArr[i].tris;
+			mesh.vertices = meshesAndPosesArr[0].verts;
+			mesh.triangles = meshesAndPosesArr[0].tris;
 			terr.GetComponent<MeshFilter>().mesh = mesh;
 			terr.GetComponent<MeshFilter>().mesh.RecalculateNormals();
 			terr.GetComponent<MeshCollider>().sharedMesh = mesh;
-			meshesAndPoses.TryDequeue(out meshesAndPosesArr[i]);
+			chunks.Add(terr);
+			//removes the data
+			meshesAndPoses.TryDequeue(out meshesAndPosesArr[0]);
 		}
 	}
 
-	void UpdateChunks(){
-		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
-            for(int z = -chunkDistance; z < chunkDistance + 1; z++){
+	void UpdateChunks(bool doThread){
+		//loops through all the chunks in spawn range and chacks if they exist
+		//if they don't it starts a thread
+		for(int x = -chunkCalculateDistance; x < chunkCalculateDistance + 1; x++){
+            for(int z = -chunkCalculateDistance; z < chunkCalculateDistance + 1; z++){
 				bool alreadySpawned = false;
+				//checks if this chunk has been spawned
 				foreach(Vector3 chunkPos in chunkPoses){
 					if((int)(chunkPos.x / 16) == Mathf.RoundToInt(player.transform.position.x / 16) + x && (int)(chunkPos.z / 16) == Mathf.RoundToInt(player.transform.position.z / 16) + z){
 						alreadySpawned = true;
 					}
 				}
+				//starts a thread if it hasn't
 				if(!alreadySpawned){
 					int tempX = Mathf.RoundToInt(player.transform.position.x / 16) + x;
 					int tempZ = Mathf.RoundToInt(player.transform.position.z / 16) + z;
         			chunkPoses.Add(new Vector3((Mathf.RoundToInt(player.transform.position.x / 16) + x) * 16, 0, (Mathf.RoundToInt(player.transform.position.z / 16) + z) * 16));
-					Thread genThr = new Thread(() => GenerateChunk(tempX, tempZ));
-					threads++;
-					genThr.Start();
+					if(doThread){
+						Thread genThr = new Thread(() => GenerateChunk(tempX, tempZ));
+						genThr.Priority = System.Threading.ThreadPriority.Lowest;
+						genThr.Start();
+					}else{
+						GenerateChunk(tempX, tempZ);
+					}
 				}
 			}
 		}
+
+		//loops through all the chunks and chooses whether to delete, enable, or disable
 		foreach(GameObject chunk in chunks.ToArray()){
-			if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + (chunkDistance * 16) || 
-			(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - (chunkDistance * 16) || 
-			(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + (chunkDistance * 16) || 
-			(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - (chunkDistance * 16)){
+			//if the chunk is really far away delete it.
+			if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkDestroyDistance || 
+			(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkDestroyDistance || 
+			(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkDestroyDistance || 
+			(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkDestroyDistance){
 				chunks.Remove(chunk);
 				chunkPoses.Remove(new Vector3(chunk.transform.position.x, 0, chunk.transform.position.z));
 				Destroy(chunk);
 			}else{
-				if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkDistance || 
-				(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkDistance || 
-				(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkDistance || 
-				(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkDistance){
+				//if the chunk is in range of chunkEnableDistance if it is it enables it
+				//otherwise it deletes it
+				if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkEnableDistance || 
+				(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkEnableDistance || 
+				(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkEnableDistance || 
+				(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkEnableDistance){
 					chunk.SetActive(false);
 				}else{
 					chunk.SetActive(true);
@@ -241,7 +273,6 @@ public class TerrainGenerator : MonoBehaviour
 		mAndp.verts = finalVerts.ToArray();
 		mAndp.tris = finalTri.ToArray();
 		mAndp.pos = new Vector3(xOfChunk * 16, 0, zOfChunk * 16);
-		threads--;
 		meshesAndPoses.Enqueue(mAndp);
 	}
 }
