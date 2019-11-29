@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class TerrainGenerator : MonoBehaviour
 {
@@ -15,45 +16,84 @@ public class TerrainGenerator : MonoBehaviour
 	public int heighDeteriorationPrepStart;
 	public GameObject terrain;
 	public GameObject player;
-	Vector2 playerChunkPos;
+	Vector3 playerChunkPos;
 	float xOffset;
     float zOffset;
 	List<GameObject> chunks = new List<GameObject>();
+	List<Vector3> chunkPoses = new List<Vector3>();
+	List<Mesh> meshes = new List<Mesh>();
+	List<Vector3> terrainPoses = new List<Vector3>();
+	Thread generate;
 
     void Start(){
 		//sets offsets because perlin noise is not random in unity so we have to move along the plane randomly
         xOffset = Random.Range(-1000f, 1000f);
         zOffset = Random.Range(-1000f, 1000f);
+		ThreadUpdateChunks();
+		generate = new Thread(ThreadUpdateChunks);
     }
 
 	void Update(){
+		if(playerChunkPos.x != Mathf.RoundToInt(player.transform.position.x / 16) || playerChunkPos.z != Mathf.RoundToInt(player.transform.position.z / 16) && generate.IsAlive == false){
+			playerChunkPos = new Vector3(Mathf.RoundToInt(player.transform.position.z / 16), 0, Mathf.RoundToInt(player.transform.position.z / 16));
+			generate = new Thread(ThreadUpdateChunks);
+			generate.Start();
+		}
+		AfterUpdate();
+	}
+
+	void ThreadUpdateChunks(){
 		for(int x = -chunkDistance; x < chunkDistance + 1; x++){
             for(int z = -chunkDistance; z < chunkDistance + 1; z++){
 				bool alreadySpawned = false;
-				foreach(GameObject chunk in chunks){
-					if((int)(chunk.transform.position.x / 16) == Mathf.RoundToInt(player.transform.position.x / 16) + x && (int)(chunk.transform.position.z / 16) == Mathf.RoundToInt(player.transform.position.z / 16) + z){
+				foreach(Vector3 chunk in chunkPoses){
+					if((int)(chunk.x / 16) == Mathf.RoundToInt(playerChunkPos.x / 16) + x && (int)(chunk.z / 16) == Mathf.RoundToInt(playerChunkPos.z / 16) + z){
+						print((Mathf.RoundToInt(playerChunkPos.x / 16) + x) + " " + (Mathf.RoundToInt(playerChunkPos.z / 16) + z));
 						alreadySpawned = true;
 					}
 				}
-
 				if(!alreadySpawned){
-        			chunks.Add(GenerateChunk(Mathf.RoundToInt(player.transform.position.x / 16) + x, Mathf.RoundToInt(player.transform.position.z / 16) + z));
+					chunkPoses.Add(new Vector3((Mathf.RoundToInt(playerChunkPos.x / 16) + x) * 16, 0, (Mathf.RoundToInt(playerChunkPos.x / 16) + z) * 16));
+        			GenerateChunk(Mathf.RoundToInt(playerChunkPos.x / 16) + x, Mathf.RoundToInt(playerChunkPos.z / 16) + z);
 				}
-			}
-		}
-
-		foreach(GameObject chunk in chunks.ToArray()){
-			if((int)(chunk.transform.position.x / 16) > Mathf.RoundToInt(player.transform.position.x / 16) + chunkDistance || 
-			(int)(chunk.transform.position.x / 16) < Mathf.RoundToInt(player.transform.position.x / 16) - chunkDistance || 
-			(int)(chunk.transform.position.z / 16) > Mathf.RoundToInt(player.transform.position.z / 16) + chunkDistance || 
-			(int)(chunk.transform.position.z / 16) < Mathf.RoundToInt(player.transform.position.z / 16) - chunkDistance){
-				chunks.Remove(chunk);
-				Destroy(chunk);
 			}
 		}
 	}
 
-    GameObject GenerateChunk(int xOfChunk, int zOfChunk){
+	void AfterUpdate(){
+		if(meshes.Count > 0){
+			foreach(Mesh m in meshes){
+				GameObject terrInst = Instantiate(terrain, terrainPoses[meshes.IndexOf(m)], Quaternion.identity);
+				terrInst.GetComponent<MeshCollider>().sharedMesh = m;
+				terrInst.GetComponent<MeshFilter>().mesh = m;
+				terrInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
+				chunks.Add(terrInst);
+			}
+			meshes.Clear();
+			terrainPoses.Clear();
+		}
+		foreach(Vector3 chunk in chunkPoses.ToArray()){
+			if((int)(chunk.x / 16) > Mathf.RoundToInt(playerChunkPos.x / 16) + chunkDistance * 10 || 
+			(int)(chunk.x / 16) < Mathf.RoundToInt(playerChunkPos.x / 16) - chunkDistance * 10 || 
+			(int)(chunk.z / 16) > Mathf.RoundToInt(playerChunkPos.z / 16) + chunkDistance * 10 || 
+			(int)(chunk.z / 16) < Mathf.RoundToInt(playerChunkPos.z / 16) - chunkDistance * 10){
+				chunks.Remove(chunks[chunkPoses.IndexOf(chunk)]);
+				Destroy(chunks[chunkPoses.IndexOf(chunk)]);
+				chunkPoses.Remove(chunk);
+			}else{
+				if((int)(chunk.x / 16) > Mathf.RoundToInt(playerChunkPos.x / 16) + chunkDistance || 
+				(int)(chunk.x / 16) < Mathf.RoundToInt(playerChunkPos.x / 16) - chunkDistance || 
+				(int)(chunk.z / 16) > Mathf.RoundToInt(playerChunkPos.z / 16) + chunkDistance || 
+				(int)(chunk.z / 16) < Mathf.RoundToInt(playerChunkPos.z / 16) - chunkDistance){
+					chunks[chunkPoses.IndexOf(chunk)].SetActive(false);
+				}else{
+					chunks[chunkPoses.IndexOf(chunk)].SetActive(true);
+				}
+			}
+		}
+	}
+
+   	void GenerateChunk(int xOfChunk, int zOfChunk){
         //loops through all possible points and says where ground should be
         int[,,] vertices = new int[17, height, 17];
         for(int x = 0; x < 17; x++){
@@ -69,7 +109,7 @@ public class TerrainGenerator : MonoBehaviour
                 }
             }
 		}
-		return GenerateChunkMesh(xOfChunk, zOfChunk, vertices);
+		GenerateChunkMesh(xOfChunk, zOfChunk, vertices);
     }
 
     //returns whether to spawn a ground or not one is yes, zero is no
@@ -122,8 +162,7 @@ public class TerrainGenerator : MonoBehaviour
 		}
     }
 
-	GameObject GenerateChunkMesh(int xOfChunk, int zOfChunk, int[,,] vertices){
-		GameObject cubeInst;
+	void GenerateChunkMesh(int xOfChunk, int zOfChunk, int[,,] vertices){
 		List<int> triReList;
 		List<int> triList;
 		int pointPos;
@@ -201,11 +240,7 @@ public class TerrainGenerator : MonoBehaviour
 		//starts new chunk
 		mesh.vertices = finalVerts.ToArray();
 		mesh.triangles = finalTri.ToArray();
-		triReList = new List<int>();
-		cubeInst = Instantiate(terrain, new Vector3(xOfChunk * 16, 0, zOfChunk * 16), Quaternion.identity);
-		cubeInst.GetComponent<MeshCollider>().sharedMesh = mesh;
-		cubeInst.GetComponent<MeshFilter>().mesh = mesh;
-		cubeInst.GetComponent<MeshFilter>().mesh.RecalculateNormals();
-		return cubeInst;
+		meshes.Add(mesh);
+		terrainPoses.Add(new Vector3(xOfChunk * 16, 0, zOfChunk * 16));
 	}
 }
