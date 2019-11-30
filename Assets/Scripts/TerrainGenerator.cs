@@ -67,13 +67,8 @@ public class TerrainGenerator : MonoBehaviour
 			mesh.vertices = meshesAndPosesArr[0].verts;
 			mesh.triangles = meshesAndPosesArr[0].tris;
 
-			//makes and sets uvs
-			Vector2[] uvs = new Vector2[meshesAndPosesArr[0].verts.Length];
-			for (int i = 0; i < uvs.Length; i++)
-			{
-				uvs[i] = new Vector2(meshesAndPosesArr[0].verts[i].x, meshesAndPosesArr[0].verts[i].z);
-			}
-			mesh.uv = uvs;
+			//sets uvs
+			mesh.uv = verticesToUvs(meshesAndPosesArr[0].verts);
 
 			//sets up the data
 			terr.GetComponent<MeshFilter>().mesh = mesh;
@@ -86,6 +81,16 @@ public class TerrainGenerator : MonoBehaviour
 			//removes the data
 			meshesAndPoses.TryDequeue(out meshesAndPosesArr[0]);
 		}
+	}
+
+	Vector2[] verticesToUvs(Vector3[] vertices){
+		Vector2[] uvs = new Vector2[vertices.Length];
+		for (int i = 0; i < uvs.Length; i++)
+		{
+			uvs[i] = new Vector2(vertices[i].x, vertices[i].z);
+		}
+
+		return uvs;
 	}
 
 	void UpdateChunks(bool doThread){
