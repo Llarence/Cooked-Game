@@ -37,9 +37,7 @@ public class TerrainGenerator : MonoBehaviour
 
 	void Update(){
 		UpdateChunks();
-		if(threads == 0){
-			SpawnChunks();
-		}
+		SpawnChunks();
 	}
 
 	void SpawnChunks(){
