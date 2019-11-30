@@ -26,7 +26,7 @@ public class TerrainGenerator : MonoBehaviour
     float zOffset;
 	List<GameObject> chunks = new List<GameObject>();
 	List<Vector3> chunkPoses = new List<Vector3>();
-	ConcurrentBag<meshDataAndPos> meshesAndPoses = new ConcurrentBag<meshDataAndPos>();
+	ConcurrentQueue<meshDataAndPos> meshesAndPoses = new ConcurrentQueue<meshDataAndPos>();
 	int threads = 0;
 
     void Start(){
@@ -52,8 +52,7 @@ public class TerrainGenerator : MonoBehaviour
 			terr.GetComponent<MeshFilter>().mesh = mesh;
 			terr.GetComponent<MeshFilter>().mesh.RecalculateNormals();
 			terr.GetComponent<MeshCollider>().sharedMesh = mesh;
-			chunks.Add(terr);
-			meshesAndPoses.TryTake(out meshesAndPosesArr[i]);
+			meshesAndPoses.TryDequeue(out meshesAndPosesArr[i]);
 		}
 	}
 
@@ -245,6 +244,6 @@ public class TerrainGenerator : MonoBehaviour
 		mAndp.tris = finalTri.ToArray();
 		mAndp.pos = new Vector3(xOfChunk * 16, 0, zOfChunk * 16);
 		threads--;
-		meshesAndPoses.Add(mAndp);
+		meshesAndPoses.Enqueue(mAndp);
 	}
 }
