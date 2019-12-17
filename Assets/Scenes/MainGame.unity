@@ -39,14 +39,10 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 =======
   m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
->>>>>>> parent of 8ca625a... lots of stuff
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -105,7 +101,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -129,15 +125,17 @@ NavMeshSettings:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1 &223944508
 =======
 --- !u!1 &223944508 stripped
 >>>>>>> parent of 77de93d... made it better
-=======
---- !u!1 &223944508
->>>>>>> parent of 8ca625a... lots of stuff
 GameObject:
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,7 +147,6 @@ GameObject:
   - component: {fileID: 223944511}
   - component: {fileID: 223944509}
 <<<<<<< HEAD
-<<<<<<< HEAD
   - component: {fileID: 223944514}
   - component: {fileID: 223944510}
   - component: {fileID: 223944515}
@@ -160,12 +157,6 @@ GameObject:
   - component: {fileID: 223944514}
   m_Layer: 2
 >>>>>>> parent of 77de93d... made it better
-=======
-  - component: {fileID: 223944514}
-  - component: {fileID: 223944510}
-  - component: {fileID: 223944515}
-  m_Layer: 0
->>>>>>> parent of 8ca625a... lots of stuff
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
 <<<<<<< HEAD
-<<<<<<< HEAD
   jump: 5
   jumpRecharge: 2
   grappleSpeed: 5
@@ -286,17 +276,11 @@ MonoBehaviour:
   jumpRecharge: 1
   rotationSpeed: 3
 >>>>>>> parent of 77de93d... made it better
-=======
-  jump: 5
-  jumpRecharge: 2
-  grappleSpeed: 5
->>>>>>> parent of 8ca625a... lots of stuff
 --- !u!136 &223944515
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
-<<<<<<< HEAD
 <<<<<<< HEAD
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223944508}
@@ -340,17 +324,6 @@ CapsuleCollider:
 >>>>>>> e030e078e7d17ae1c155c5976acd9713cff8dbbd
   m_PrefabAsset: {fileID: 0}
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223944508}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 0.5
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.6, z: 0}
->>>>>>> parent of 8ca625a... lots of stuff
 --- !u!1 &223974226
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +407,6 @@ Light:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
 <<<<<<< HEAD
-<<<<<<< HEAD
   serializedVersion: 9
   m_Type: 1
 =======
@@ -442,10 +414,6 @@ Light:
   m_Type: 1
   m_Shape: 0
 >>>>>>> parent of 77de93d... made it better
-=======
-  serializedVersion: 9
-  m_Type: 1
->>>>>>> parent of 8ca625a... lots of stuff
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -493,14 +461,10 @@ Light:
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_BoundingSphereOverride: {x: 1.81768e+31, y: 1.8007913e+25, z: 179685.81, w: 2806.1536}
 =======
   m_BoundingSphereOverride: {x: 6.82e-43, y: 4.9e-44, z: 0, w: 0.000000006303541}
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_BoundingSphereOverride: {x: 1.81768e+31, y: 1.8007913e+25, z: 179685.81, w: 2806.1536}
->>>>>>> parent of 8ca625a... lots of stuff
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -531,7 +495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -645,8 +608,6 @@ PrefabInstance:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ab2b27f3b5ba634e8dc971a250bac8a, type: 3}
 >>>>>>> parent of 77de93d... made it better
-=======
->>>>>>> parent of 8ca625a... lots of stuff
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,15 +620,11 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_Layer: 0
 =======
   - component: {fileID: 963194229}
   m_Layer: 2
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_Layer: 0
->>>>>>> parent of 8ca625a... lots of stuff
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -741,7 +698,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 --- !u!114 &963194229
 MonoBehaviour:
@@ -775,8 +731,6 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
 >>>>>>> parent of 77de93d... made it better
-=======
->>>>>>> parent of 8ca625a... lots of stuff
 --- !u!1 &1744899914
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,28 +742,20 @@ GameObject:
   - component: {fileID: 1744899915}
   - component: {fileID: 1744899916}
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_Layer: 0
 =======
   m_Layer: 2
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_Layer: 0
->>>>>>> parent of 8ca625a... lots of stuff
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_IsActive: 1
 =======
   m_IsActive: 0
 >>>>>>> parent of 77de93d... made it better
-=======
-  m_IsActive: 1
->>>>>>> parent of 8ca625a... lots of stuff
 --- !u!4 &1744899915
 Transform:
   m_ObjectHideFlags: 0
@@ -833,7 +779,6 @@ Light:
   m_GameObject: {fileID: 1744899914}
   m_Enabled: 1
 <<<<<<< HEAD
-<<<<<<< HEAD
   serializedVersion: 9
   m_Type: 0
 =======
@@ -841,10 +786,6 @@ Light:
   m_Type: 0
   m_Shape: 0
 >>>>>>> parent of 77de93d... made it better
-=======
-  serializedVersion: 9
-  m_Type: 0
->>>>>>> parent of 8ca625a... lots of stuff
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 20
   m_Range: 100
@@ -895,7 +836,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -1015,5 +955,3 @@ PrefabInstance:
 =======
 >>>>>>> e030e078e7d17ae1c155c5976acd9713cff8dbbd
 >>>>>>> parent of 77de93d... made it better
-=======
->>>>>>> parent of 8ca625a... lots of stuff
