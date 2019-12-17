@@ -10,7 +10,7 @@ public class DayChange : MonoBehaviour
 		//full day cycle 6 minutes
 		transform.Rotate(Time.deltaTime * speed, 0, 0);
 		//make sure lighting doesn't shine upsidedown
-		if(transform.eulerAngles.x >= 265 && transform.eulerAngles.x <= 355){
+		if(transform.eulerAngles.x >= 275 && transform.eulerAngles.x <= 365){
 			GetComponent<Light>().intensity = 0;
 		}else{
 			GetComponent<Light>().intensity = 1;
