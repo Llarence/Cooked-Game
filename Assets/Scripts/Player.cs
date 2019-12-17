@@ -7,13 +7,12 @@ public class Player : MonoBehaviour
     public float speed;
     public float jump;
     public float jumpRecharge;
-    public float grappleSpeed;
+    public float rotationSpeed;
     float timeSincejump;
     Rigidbody rb;
     int isJumping;
-    Vector3 grapPos;
-    bool isGrappling;
     RaycastHit hit;
+    GameObject pickUp;
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
@@ -21,28 +20,39 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetMouseButtonUp(1)){
-            if(isGrappling){
-                isGrappling = false;
-            }else{
+        timeSincejump += Time.deltaTime;
+        if(Input.GetMouseButtonUp(0)){
+            if(pickUp == null){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 50f)){
-                    grapPos = hit.point;
-                    isGrappling = true;
+                if (Physics.Raycast(ray, out hit, 4)){
+                    if(hit.collider.gameObject.tag == "pickUp"){
+                        pickUp = hit.collider.gameObject;
+                        pickUp.GetComponent<Rigidbody>().useGravity = false;
+                        pickUp.layer = 2;
+                    }
                 }
+            }else{
+                pickUp.layer = 0;
+                pickUp.GetComponent<Rigidbody>().useGravity = true;
+                pickUp = null;
             }
+        }
+        transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y"), 0, 0);
+        transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
+        if(pickUp != null){
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < 4){
+                pickUp.transform.position = new Vector3(hit.point.x, hit.point.y + pickUp.GetComponent<Pickup>().holdHeightOnGround, hit.point.z);
+                pickUp.transform.rotation = Quaternion.identity;
+            }else{
+                pickUp.transform.position = transform.position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<Pickup>().holdDistance + Vector3.up * pickUp.GetComponent<Pickup>().holdUp;
+            }
+            pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
 
     void FixedUpdate(){
-        timeSincejump += Time.deltaTime;
-        transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y"), 0, 0);
-        transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
-        if(isGrappling){
-            rb.velocity = (transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * speed, Mathf.Clamp(rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), -Mathf.Infinity, 0f), Input.GetAxisRaw("Vertical") * speed) + (grapPos - transform.position).normalized * grappleSpeed);
-        }else{
-            rb.velocity = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * speed, rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), Input.GetAxisRaw("Vertical") * speed);
-        }
+        rb.velocity = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * speed, rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), Input.GetAxisRaw("Vertical") * speed);
         isJumping = 0;
     }
 
