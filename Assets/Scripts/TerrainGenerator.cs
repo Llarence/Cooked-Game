@@ -15,6 +15,7 @@ public class TerrainGenerator : MonoBehaviour
     public int chunkEnableDistance;
 	public int chunkCalculateDistance;
 	public int chunkDestroyDistance;
+	public int waitForFrames;
 	int frame;
     public int height;
     public float detail;
