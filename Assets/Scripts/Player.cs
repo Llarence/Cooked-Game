@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
                 pickUp = null;
             }
         }
-        transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y"), 0, 0);
+        transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y") * rotationSpeed, 0, 0);
         transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
         if(pickUp != null){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
