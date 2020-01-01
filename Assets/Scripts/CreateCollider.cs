@@ -2,68 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using System.Linq;
 
 [ExecuteInEditMode]
 public class CreateCollider : MonoBehaviour
 {
-    public string folderPath;
     public bool update;
     public GameObject emptyCol;
 
     void Update(){
         if(!Application.isPlaying && update){
             update = false;
-
-            foreach(Transform childTrans in transform){
-                Destroy(childTrans.gameObject);
+    
+            List<Transform> children = transform.Cast<Transform>().ToList();
+            foreach(Transform child in children){
+                DestroyImmediate(child.gameObject);
             }
+            
+            Mesh gameObjectMesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
 
-            List<Vector3> verts = new List<Vector3>();
-            List<int[]> shapes = new List<int[]>();
-            string path = "Assets/" + folderPath;
-            string line;
-            StreamReader reader = new StreamReader(path);
+            for(int i = 0; i < gameObjectMesh.triangles.Length; i += 3){
+                GameObject emptyColInst = Instantiate(emptyCol, transform.position, Quaternion.identity);
+                emptyColInst.transform.parent = gameObject.transform;
+                Mesh colMesh = new Mesh();
+                Vector3[] verts = new Vector3[6];
+                int[] tris = new int[6]{0, 1, 2, 3, 4, 5};
 
-            while(!reader.EndOfStream){
-                line = reader.ReadLine();
-
-                if(line.StartsWith("v ")){
-                    string[] dataClumps = line.Split(' ');
-                    verts.Add(new Vector3(float.Parse(dataClumps[1]), float.Parse(dataClumps[2]), float.Parse(dataClumps[3])));
+                Vector3[] realVerts = new Vector3[3];
+                for(int j = 0; j < 3; j++){
+                    realVerts[j] = gameObjectMesh.vertices[gameObjectMesh.triangles[i + j]];
+                }
+                Vector3 cross = Vector3.Cross(realVerts[0], realVerts[1]).normalized * 0.05f;
+                for(int j = 0; j < 3; j++){
+                    verts[j] = realVerts[j] + cross;
+                }
+                for(int j = 0; j < 3; j++){
+                    verts[j + 3] = realVerts[j] - cross;
                 }
 
-                if(line.StartsWith("f ")){
-                    string[] dataClumps = line.Remove(0, 2).Split(' ');
-                    int[] shape = new int[dataClumps.Length];
-
-                    for(int i = 0; i < dataClumps.Length; i++){
-                        shape[i] = int.Parse(dataClumps[i].Split('/')[0]);
-                    }
-                    shapes.Add(shape);
-                }
+                colMesh.vertices = verts;
+                colMesh.triangles = tris;
+                emptyColInst.GetComponent<MeshCollider>().convex = true;
+                emptyColInst.GetComponent<MeshCollider>().sharedMesh = colMesh;
             }
-            reader.Close();
-
-            GameObject emptyColInst = Instantiate(emptyCol, transform.position, Quaternion.identity);
-            emptyColInst.transform.parent = gameObject.transform;
-            Mesh colMesh = new Mesh();
-            colMesh.vertices = verts.ToArray();
-            List<int> tris = new List<int>();
-
-            foreach(int[] shape in shapes){
-                List<int> tempShape = new List<int>();
-                tempShape.AddRange(shape);
-                while(tempShape.Count > 2){
-                    tris.Add(tempShape[0]);
-                    tris.Add(tempShape[1]);
-                    tris.Add(tempShape[2]);
-                    tris.RemoveAt(1);
-                }
-            }
-
-            colMesh.triangles = tris.ToArray();
-            emptyColInst.GetComponent<MeshCollider>().sharedMesh = colMesh;
         }
     }
 }
