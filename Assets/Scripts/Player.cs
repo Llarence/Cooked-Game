@@ -24,15 +24,33 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 4)){
+                if (Physics.Raycast(ray, out hit, 100)){
                     if(hit.collider.gameObject.tag == "pickUp"){
-                        pickUp = hit.collider.gameObject;
-                        pickUp.GetComponent<Rigidbody>().useGravity = false;
-                        pickUp.layer = 2;
+                        if(hit.collider.gameObject.GetComponent<Pickup>().grabDistance >= hit.distance){
+                            pickUp = hit.collider.gameObject;
+                            pickUp.GetComponent<Rigidbody>().useGravity = false;
+                            pickUp.layer = 2;
+                        }
+                    }else if(hit.collider.transform.parent != null){
+                        if(hit.collider.transform.parent.gameObject.tag == "pickUp"){
+                            if(hit.collider.transform.parent.gameObject.GetComponent<Pickup>().grabDistance >= hit.distance){
+                                pickUp = hit.collider.transform.parent.gameObject;
+                                pickUp.GetComponent<Rigidbody>().useGravity = false;
+                                foreach(Transform child in pickUp.transform){
+                                    child.gameObject.layer = 2;
+                                }
+                                pickUp.layer = 2;
+                            }
+                        }
                     }
                 }
             }else{
                 pickUp.layer = 0;
+                if(pickUp.transform.childCount > 0){
+                    foreach(Transform child in pickUp.transform){
+                        child.gameObject.layer = 0;
+                    }
+                }
                 pickUp.GetComponent<Rigidbody>().useGravity = true;
                 pickUp = null;
             }
@@ -41,11 +59,11 @@ public class Player : MonoBehaviour
         transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
         if(pickUp != null){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < 4){
+            if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < pickUp.GetComponent<Pickup>().holdDistanceGround * pickUp.GetComponent<Pickup>().holdDistanceGround){
                 pickUp.transform.position = new Vector3(hit.point.x, hit.point.y + pickUp.GetComponent<Pickup>().holdHeightOnGround, hit.point.z);
                 pickUp.transform.rotation = Quaternion.identity;
             }else{
-                pickUp.transform.position = transform.position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<Pickup>().holdDistance + Vector3.up * pickUp.GetComponent<Pickup>().holdUp;
+                pickUp.transform.position = transform.GetChild(0).position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<Pickup>().holdDistance + Vector3.up * pickUp.GetComponent<Pickup>().holdUp;
             }
             pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
