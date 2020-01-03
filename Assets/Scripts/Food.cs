@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PickUpData", menuName = "PickUpData")]
-public class PickUp : ScriptableObject
+[CreateAssetMenu(fileName = "FoodData", menuName = "FoodData")]
+public class Food : ScriptableObject
 {
     public float holdHeightOnGround;
     public float holdDistance;

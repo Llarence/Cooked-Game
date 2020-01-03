@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 3352633632102509526}
   - component: {fileID: 3352633632102509527}
   - component: {fileID: 3352633632102509512}
-  - component: {fileID: 1705226047896893806}
   - component: {fileID: 4062486741852673024}
   m_Layer: 0
-  m_Name: Pot
-  m_TagString: pickUp
+  m_Name: pot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,23 +97,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1705226047896893806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3352633632102509514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b01952deaba0de34c9cea6907c3a3d38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdHeightOnGround: 0.5
-  holdDistance: 3
-  holdUp: 0.5
-  holdDistanceGround: 3.5
-  grabDistance: 3
 --- !u!114 &4062486741852673024
 MonoBehaviour:
   m_ObjectHideFlags: 0
