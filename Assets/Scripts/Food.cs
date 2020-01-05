@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public struct reactantsAndProducts{
+public struct ReactantsAndProducts{
     public Food[] reactants;
     public Food[] products;
 }
@@ -12,5 +12,6 @@ public struct reactantsAndProducts{
 [CreateAssetMenu(fileName = "FoodData", menuName = "FoodData")]
 public class Food : ScriptableObject
 {
-    public reactantsAndProducts[] reactantsAndProductsInfo;
+    public ReactantsAndProducts[] reactantsAndProductsInfo;
+    public GameObject prefab;
 }

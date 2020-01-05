@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8ae0a64d4e61499d28222b9993e00, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  reactantsAndProductsInfo: []
+  reactantsAndProductsInfo:
+  - reactants:
+    - {fileID: 11400000, guid: b3ffaca1eb32c9a46b46d3a74dede355, type: 2}
+    products:
+    - {fileID: 11400000, guid: f084c2c086718c44588ce2eeba0bc95d, type: 2}
+  prefab: {fileID: 6918715253351639422, guid: f8c0c285a1d025642ac8d0636482beb7, type: 3}

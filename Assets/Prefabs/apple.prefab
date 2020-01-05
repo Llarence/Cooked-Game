@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   datas:
+  - {fileID: 11400000, guid: 562a568a0529d1e48bc3d2fa385d1fca, type: 2}
   - {fileID: 11400000, guid: 73e2f189c382a744581acc8947bd1ef8, type: 2}
 --- !u!54 &6918172311641117045
 Rigidbody:
