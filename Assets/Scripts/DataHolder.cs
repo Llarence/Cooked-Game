@@ -16,10 +16,10 @@ public class DataHolder : MonoBehaviour
         return false;
     }
 
-    public dynamic getIndex<T>(){
+    public dynamic get<T>(){
         foreach(ScriptableObject data in datas){
             if(data.GetType() == typeof(T)){
-                return data
+                return data;
             }
         }
 

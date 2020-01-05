@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,15 +25,17 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.GetComponent<DataHolder>() != null){
-                    if(hit.collider.gameObject.GetComponent<DataHolder>().has<PickUp>()){
-                        if(hit.collider.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
-                            pickUp = hit.collider.gameObject;
-                            pickUp.GetComponent<Rigidbody>().useGravity = false;
-                            pickUp.layer = 2;
+                if (Physics.Raycast(ray, out hit, 100)){
+                    if(hit.collider.gameObject.GetComponent<DataHolder>() != null){
+                        if(hit.collider.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                            if(hit.collider.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                                pickUp = hit.collider.gameObject;
+                                pickUp.GetComponent<Rigidbody>().useGravity = false;
+                                pickUp.layer = 2;
+                            }
                         }
-                    }else if(hit.collider.transform.parent != null){
-                        if(hit.collider.transform.parent.gameObject.tag == "pickUp"){
+                    }if(hit.collider.transform.parent != null){
+                        if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
                             if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
                                 pickUp = hit.collider.transform.parent.gameObject;
                                 pickUp.GetComponent<Rigidbody>().useGravity = false;

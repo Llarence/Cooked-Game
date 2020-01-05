@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 6071924583424541227}
   - component: {fileID: 6069242058960197857}
   - component: {fileID: 6061675729513157293}
+  - component: {fileID: 6916425084003606681}
   - component: {fileID: 6074340881323091378}
   - component: {fileID: 6074340881323091379}
+  - component: {fileID: 3426458912697375030}
   m_Layer: 0
   m_Name: pear
   m_TagString: Untagged
@@ -81,6 +83,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6916425084003606681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073696822922272185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01952deaba0de34c9cea6907c3a3d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  datas: []
 --- !u!54 &6074340881323091378
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -111,3 +126,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300016, guid: 3f4d2118f6a772542a1635ef5bfa6982, type: 3}
+--- !u!114 &3426458912697375030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6073696822922272185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2985bf9b65bebac42b5ad6137e79258e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
