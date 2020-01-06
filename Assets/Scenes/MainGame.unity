@@ -10314,6 +10314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: inputModules.Array.data[0].inputVars.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].module
       value: 
       objectReference: {fileID: 0}
@@ -10326,6 +10331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: inputModules.Array.data[0].moduleType
       value: Wander
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: inputModules.Array.data[0].inputVars.Array.data[0].name
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
