@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AIModule
+public abstract class AIDetectModule
 {
     public Dictionary<string, dynamic> vars = new Dictionary<string, dynamic>();
     public GameObject gameObject;
@@ -11,7 +11,7 @@ public abstract class AIModule
 
     }
 
-    public virtual void run(){
+    public virtual void detect(){
 
     }
 }

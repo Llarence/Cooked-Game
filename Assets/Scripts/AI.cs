@@ -12,7 +12,9 @@ public struct InputVar{
 }
 
 [Serializable]
-public struct Rule{
+public struct InputRule{
+    public string detectModuleType;
+    public InputVar[] inputVars;
     public string var1;
     public string ruleOperator;
     public string var2;
@@ -23,10 +25,17 @@ public struct Rule{
 public struct ModuleInputPacket{
     public string moduleType;
     public InputVar[] inputVars;
-    public Rule[] rules;
+    public InputRule[] rules;
 }
 
-[Serializable]
+public struct Rule{
+    public AIDetectModule detectModule;
+    public string var1;
+    public string ruleOperator;
+    public string var2;
+    public int nextModule;
+}
+
 struct ModulePacket{
     public AIModule module;
     public Rule[] rules;
@@ -44,58 +53,73 @@ public class AI : MonoBehaviour
             ModuleInputPacket aiInputPacket = inputModules[i];
             ModulePacket aiPacket = new ModulePacket();
             aiPacket.module = (AIModule)Activator.CreateInstance(Type.GetType(aiInputPacket.moduleType));
-            for(int j = 0; j < aiInputPacket.inputVars.Length; j++){
-                aiPacket.module.inputVars.Add(aiInputPacket.inputVars[j].name, Convert.ChangeType(aiInputPacket.inputVars[j].var, Type.GetType(aiInputPacket.inputVars[j].varType)));
+
+            foreach(InputVar inputVar in aiInputPacket.inputVars){
+                aiPacket.module.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
             }
-            aiPacket.rules = aiInputPacket.rules;
-            aiPacket.module.wakeUp(gameObject);
+
+            aiPacket.rules = new Rule[aiInputPacket.rules.Length];
+            for(int j = 0; j < aiInputPacket.rules.Length; j++){
+                aiPacket.rules[j].detectModule = (AIDetectModule)Activator.CreateInstance(Type.GetType(aiInputPacket.rules[j].detectModuleType));
+                aiPacket.rules[j].detectModule.gameObject = gameObject;
+                foreach(InputVar inputVar in aiInputPacket.rules[j].inputVars){
+                    aiPacket.rules[j].detectModule.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
+                }
+
+                aiPacket.rules[j].nextModule = aiInputPacket.rules[j].nextModule;
+                aiPacket.rules[j].var1 = aiInputPacket.rules[j].var1;
+                aiPacket.rules[j].var2 = aiInputPacket.rules[j].var2;
+                aiPacket.rules[j].ruleOperator = aiInputPacket.rules[j].ruleOperator;
+
+                aiPacket.rules[j].detectModule.wakeUp();
+            }
+
+            aiPacket.module.gameObject = gameObject;
+            aiPacket.module.wakeUp();
             modules[i] = aiPacket;
         }
+
         moduleRunning = modules[0];
     }
 
     void Update(){
-        moduleRunning.module.run(gameObject);
+        moduleRunning.module.run();
         foreach(Rule rule in moduleRunning.rules){
-            ifWithString(rule.ruleOperator, moduleRunning.module.outputVars[rule.var1], moduleRunning.module.outputVars[rule.var2], rule.nextModule);
+            rule.detectModule.detect();
+            ifWithString(rule.ruleOperator, rule.detectModule.vars[rule.var1], rule.detectModule.vars[rule.var2], rule.nextModule);
         }
     }
 
-    bool ifWithString(string ruleOperator, dynamic var1, dynamic var2, int nextModule){
+    void ifWithString(string ruleOperator, dynamic var1, dynamic var2, int nextModule){
         if(ruleOperator == "=="){
             if(var1 == var2){
                 moduleRunning = modules[nextModule];
-                return true;
             }
-            return false;
+            return;
         }
         if(ruleOperator == "<="){
             if(var1 <= var2){
                 moduleRunning = modules[nextModule];
-                return true;
             }
-            return false;
+            return;
         }
         if(ruleOperator == ">="){
             if(var1 >= var2){
                 moduleRunning = modules[nextModule];
-                return true;
             }
-            return false;
+            return;
         }
         if(ruleOperator == ">"){
             if(var1 > var2){
                 moduleRunning = modules[nextModule];
-                return true;
             }
-            return false;
+            return;
         }
         if(ruleOperator == "<"){
             if(var1 < var2){
                 moduleRunning = modules[nextModule];
-                return true;
             }
-            return false;
+            return;
         }
 
         throw new System.ArgumentException("Rule operator doesn't contain ==, <=, =>, <, or >", "Llarence's cool errors");

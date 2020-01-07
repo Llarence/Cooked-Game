@@ -130,4 +130,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0996baaf6a70404bba61d6981cb1388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modules: []
+  inputModules:
+  - moduleType: Wander
+    inputVars:
+    - name: Avocada Distance Squared
+      varType: float
+      var: 5
+    rules:
+    - var1: Avocado Distance Squared
+      ruleOperator: '>='
+      var2: Closet Avocado Distance Squared
+      nextModule: 1
+  - moduleType: ChaseAvocado
+    inputVars: []
+    rules: []

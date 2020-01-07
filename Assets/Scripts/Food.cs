@@ -5,6 +5,7 @@ using System;
 
 [Serializable]
 public struct ReactantsAndProducts{
+    public bool IsTheCollisionFood;
     public Food[] reactants;
     public Food[] products;
 }
