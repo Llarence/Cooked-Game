@@ -19,4 +19,4 @@ MonoBehaviour:
     products:
     - {fileID: 11400000, guid: f084c2c086718c44588ce2eeba0bc95d, type: 2}
   prefab: {fileID: 6073696822922272185, guid: d6eaa767baec3964abbff3d8a3537e48, type: 3}
-  name: Pear
+  foodName: Pear

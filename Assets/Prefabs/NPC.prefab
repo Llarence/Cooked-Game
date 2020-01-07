@@ -132,14 +132,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputModules:
   - moduleType: Wander
-    inputVars:
-    - name: Avocada Distance Squared
-      varType: float
-      var: 5
+    inputVars: []
     rules:
-    - var1: Avocado Distance Squared
+    - detectModuleType: FindAvocado
+      inputVars:
+      - name: MinAvocadoDistanceSquared
+        varType: System.Single
+        var: 400
+      - name: ClosestAvocadoDistanceSquared
+        varType: System.Single
+        var: 0
+      var1: MinAvocadoDistanceSquared
       ruleOperator: '>='
-      var2: Closet Avocado Distance Squared
+      var2: ClosestAvocadoDistanceSquared
       nextModule: 1
   - moduleType: ChaseAvocado
     inputVars: []

@@ -15,4 +15,5 @@ public class Food : ScriptableObject
 {
     public ReactantsAndProducts[] reactantsAndProductsInfo;
     public GameObject prefab;
+    public string foodName;
 }

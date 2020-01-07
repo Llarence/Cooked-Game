@@ -9,12 +9,11 @@ public class ChaseAvocado : AIModule
     Vector3 destination;
     float timer;
 
-    public override void wakeUp(){
+    void Start(){
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
-    public override void run(){
-        Debug.Log("Hunter");
+    void Update(){
         if(timer > 1){
             timer = 0;
             GameObject nearestAvocado = FindClosestAvocado();
@@ -28,10 +27,10 @@ public class ChaseAvocado : AIModule
 
     public GameObject FindClosestAvocado(){
         List<GameObject> gos = new List<GameObject>();
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Untagged")){
+        foreach(GameObject go in (GameObject[])GameObject.FindObjectsOfType(typeof(GameObject))){
             if(go.GetComponent<DataHolder>()){
                 if(go.GetComponent<DataHolder>().has<Food>()){
-                    if(go.GetComponent<DataHolder>().get<Food>().name == "Avocado"){
+                    if(go.GetComponent<DataHolder>().get<Food>().foodName == "Avocado"){
                         gos.Add(go);
                     }
                 }

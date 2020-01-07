@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reactantsAndProductsInfo: []
   prefab: {fileID: 1023760598691819701, guid: cf3c727f84e6681489055bfcea4a982d, type: 3}
-  name: Avocado
+  foodName: Avocado

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FindAvocado : AIDetectModule
 {
-    public override void wakeUp(){
+    void Start(){
 
     }
 
-    public override void detect(){
+    void Update(){
         GameObject nearestAvocado = FindClosestAvocado();
         if(nearestAvocado != null){
             vars["ClosestAvocadoDistanceSquared"] = (nearestAvocado.transform.position - gameObject.transform.position).sqrMagnitude;
@@ -19,10 +19,10 @@ public class FindAvocado : AIDetectModule
 
     public GameObject FindClosestAvocado(){
         List<GameObject> gos = new List<GameObject>();
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Untagged")){
+        foreach(GameObject go in (GameObject[])GameObject.FindObjectsOfType(typeof(GameObject))){
             if(go.GetComponent<DataHolder>()){
                 if(go.GetComponent<DataHolder>().has<Food>()){
-                    if(go.GetComponent<DataHolder>().get<Food>().name == "Avocado"){
+                    if(go.GetComponent<DataHolder>().get<Food>().foodName == "Avocado"){
                         gos.Add(go);
                     }
                 }

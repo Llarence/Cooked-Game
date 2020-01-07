@@ -12,9 +12,11 @@ public struct InputVar{
 }
 
 [Serializable]
-public struct InputRule{
+public struct Rule{
     public string detectModuleType;
-    public InputVar[] inputVars;
+    [NonSerialized]
+    public AIDetectModule detector;
+    public InputVar[] vars;
     public string var1;
     public string ruleOperator;
     public string var2;
@@ -22,102 +24,79 @@ public struct InputRule{
 }
 
 [Serializable]
-public struct ModuleInputPacket{
+public struct ModulePacket{
     public string moduleType;
-    public InputVar[] inputVars;
-    public InputRule[] rules;
-}
-
-public struct Rule{
-    public AIDetectModule detectModule;
-    public string var1;
-    public string ruleOperator;
-    public string var2;
-    public int nextModule;
-}
-
-struct ModulePacket{
-    public AIModule module;
+    [NonSerialized]
+    public AIModule mainScript;
+    public InputVar[] vars;
     public Rule[] rules;
 }
 
 public class AI : MonoBehaviour
 {
-    public ModuleInputPacket[] inputModules;
-    ModulePacket[] modules;
+    public ModulePacket[] modules;
     ModulePacket moduleRunning;
 
     void Start(){
-        modules = new ModulePacket[inputModules.Length];
-        for(int i = 0; i < modules.Length; i++){
-            ModuleInputPacket aiInputPacket = inputModules[i];
-            ModulePacket aiPacket = new ModulePacket();
-            aiPacket.module = (AIModule)Activator.CreateInstance(Type.GetType(aiInputPacket.moduleType));
-
-            foreach(InputVar inputVar in aiInputPacket.inputVars){
-                aiPacket.module.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
-            }
-
-            aiPacket.rules = new Rule[aiInputPacket.rules.Length];
-            for(int j = 0; j < aiInputPacket.rules.Length; j++){
-                aiPacket.rules[j].detectModule = (AIDetectModule)Activator.CreateInstance(Type.GetType(aiInputPacket.rules[j].detectModuleType));
-                aiPacket.rules[j].detectModule.gameObject = gameObject;
-                foreach(InputVar inputVar in aiInputPacket.rules[j].inputVars){
-                    aiPacket.rules[j].detectModule.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
-                }
-
-                aiPacket.rules[j].nextModule = aiInputPacket.rules[j].nextModule;
-                aiPacket.rules[j].var1 = aiInputPacket.rules[j].var1;
-                aiPacket.rules[j].var2 = aiInputPacket.rules[j].var2;
-                aiPacket.rules[j].ruleOperator = aiInputPacket.rules[j].ruleOperator;
-
-                aiPacket.rules[j].detectModule.wakeUp();
-            }
-
-            aiPacket.module.gameObject = gameObject;
-            aiPacket.module.wakeUp();
-            modules[i] = aiPacket;
-        }
-
-        moduleRunning = modules[0];
+       setUpForModuleRunning(new ModulePacket(), modules[0]);
     }
 
     void Update(){
-        moduleRunning.module.run();
         foreach(Rule rule in moduleRunning.rules){
-            rule.detectModule.detect();
-            ifWithString(rule.ruleOperator, rule.detectModule.vars[rule.var1], rule.detectModule.vars[rule.var2], rule.nextModule);
+            ifWithString(rule.ruleOperator, rule.detector.vars[rule.var1], rule.detector.vars[rule.var2], rule.nextModule);
+        }
+    }
+
+    void setUpForModuleRunning(ModulePacket oldModule, ModulePacket newModule){
+        if(oldModule.mainScript != null){
+            foreach(Rule rule in oldModule.rules){
+                Destroy(rule.detector);
+            }
+            
+            Destroy(oldModule.mainScript);
+        }
+
+        moduleRunning = newModule;
+        for(int i = 0; i < moduleRunning.rules.Length; i++){
+            moduleRunning.rules[i].detector = gameObject.AddComponent(Type.GetType(moduleRunning.rules[i].detectModuleType)) as AIDetectModule;
+            foreach(InputVar inputVar in moduleRunning.rules[i].vars){
+                moduleRunning.rules[i].detector.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
+            }
+        }
+        moduleRunning.mainScript = gameObject.AddComponent(Type.GetType(moduleRunning.moduleType)) as AIModule;
+        foreach(InputVar inputVar in moduleRunning.vars){
+            moduleRunning.mainScript.vars.Add(inputVar.name, Convert.ChangeType(inputVar.var, Type.GetType(inputVar.varType)));
         }
     }
 
     void ifWithString(string ruleOperator, dynamic var1, dynamic var2, int nextModule){
         if(ruleOperator == "=="){
             if(var1 == var2){
-                moduleRunning = modules[nextModule];
+                setUpForModuleRunning(moduleRunning, modules[nextModule]);
             }
             return;
         }
         if(ruleOperator == "<="){
             if(var1 <= var2){
-                moduleRunning = modules[nextModule];
+                setUpForModuleRunning(moduleRunning, modules[nextModule]);
             }
             return;
         }
         if(ruleOperator == ">="){
             if(var1 >= var2){
-                moduleRunning = modules[nextModule];
+                setUpForModuleRunning(moduleRunning, modules[nextModule]);
             }
             return;
         }
         if(ruleOperator == ">"){
             if(var1 > var2){
-                moduleRunning = modules[nextModule];
+                setUpForModuleRunning(moduleRunning, modules[nextModule]);
             }
             return;
         }
         if(ruleOperator == "<"){
             if(var1 < var2){
-                moduleRunning = modules[nextModule];
+                setUpForModuleRunning(moduleRunning, modules[nextModule]);
             }
             return;
         }
