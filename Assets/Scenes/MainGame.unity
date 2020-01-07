@@ -521,6 +521,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -583,6 +593,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -842,6 +902,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -904,6 +974,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -1107,6 +1227,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -1169,6 +1299,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -1329,6 +1509,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -1391,6 +1581,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -1478,6 +1718,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -1540,6 +1790,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -1701,6 +2001,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -1763,6 +2073,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -1942,6 +2302,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -2004,6 +2374,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -2091,6 +2511,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -2153,6 +2583,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -2309,6 +2789,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -2371,6 +2861,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
@@ -2497,6 +3037,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
         type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
       propertyPath: modules.Array.data[0].moduleType
       value: Wander
       objectReference: {fileID: 0}
@@ -2559,6 +3109,56 @@ PrefabInstance:
         type: 3}
       propertyPath: modules.Array.data[1].moduleType
       value: ChaseAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].detectModuleType
+      value: FindAvocado
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var1
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].name
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].var
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].varType
+      value: System.Single
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[1].name
+      value: MinAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].vars.Array.data[0].var
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].var2
+      value: ClosestAvocadoDistanceSquared
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853654703568592801, guid: 127cd815f3f2fee46ada5a213d105648,
+        type: 3}
+      propertyPath: modules.Array.data[1].rules.Array.data[0].ruleOperator
+      value: <
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 127cd815f3f2fee46ada5a213d105648, type: 3}
