@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     int isJumping;
     RaycastHit hit;
     GameObject pickUp;
-    public GameObject Mushroom;
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
@@ -75,10 +74,5 @@ public class Player : MonoBehaviour
             isJumping = 1;
             timeSincejump = 0;
         }
-    }
-
-    public void mushroom()
-    {
-        Instantiate(Mushroom, gameObject.transform);
     }
 }
