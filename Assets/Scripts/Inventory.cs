@@ -10,8 +10,6 @@ public class Inventory : MonoBehaviour
     public bool InventoryEnabled;
     public float mushrooms;
     public Text Mushrooms;
-    public GameObject GOmushroom;
-    public GameObject Player;
 
     void Update()
     {
