@@ -32,10 +32,14 @@ public class Inventory : MonoBehaviour
         if(InventoryEnabled == true)
         {
             inventory.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
             inventory.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
