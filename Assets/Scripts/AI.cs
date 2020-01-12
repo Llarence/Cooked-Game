@@ -5,14 +5,14 @@ using System;
 using System.Linq;
 
 [Serializable]
-public struct InputVar{
+public class InputVar{
     public string name;
     public string varType;
     public string var;
 }
 
 [Serializable]
-public struct Rule{
+public class Rule{
     public string detectModuleType;
     [NonSerialized]
     public AIDetectModule detector;
@@ -24,7 +24,7 @@ public struct Rule{
 }
 
 [Serializable]
-public struct ModulePacket{
+public class ModulePacket{
     public string moduleType;
     [NonSerialized]
     public AIModule mainScript;
