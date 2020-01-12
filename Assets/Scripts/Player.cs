@@ -70,6 +70,19 @@ public class Player : MonoBehaviour
             }
             pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, 4))
+            {
+                if(hit.collider.gameObject.tag == "Plant")
+                {
+                    hit.collider.gameObject.GetComponent<Plant>().clicked = true;
+                }
+            }
+        }
     }
 
     void FixedUpdate(){
