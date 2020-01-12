@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,15 +25,35 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 4)){
-                    if(hit.collider.gameObject.tag == "pickUp"){
-                        pickUp = hit.collider.gameObject;
-                        pickUp.GetComponent<Rigidbody>().useGravity = false;
-                        pickUp.layer = 2;
+                if (Physics.Raycast(ray, out hit, 100)){
+                    if(hit.collider.gameObject.GetComponent<DataHolder>() != null){
+                        if(hit.collider.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                            if(hit.collider.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                                pickUp = hit.collider.gameObject;
+                                pickUp.GetComponent<Rigidbody>().useGravity = false;
+                                pickUp.layer = 2;
+                            }
+                        }
+                    }if(hit.collider.transform.parent != null){
+                        if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                            if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                                pickUp = hit.collider.transform.parent.gameObject;
+                                pickUp.GetComponent<Rigidbody>().useGravity = false;
+                                foreach(Transform child in pickUp.transform){
+                                    child.gameObject.layer = 2;
+                                }
+                                pickUp.layer = 2;
+                            }
+                        }
                     }
                 }
             }else{
                 pickUp.layer = 0;
+                if(pickUp.transform.childCount > 0){
+                    foreach(Transform child in pickUp.transform){
+                        child.gameObject.layer = 0;
+                    }
+                }
                 pickUp.GetComponent<Rigidbody>().useGravity = true;
                 pickUp = null;
             }
@@ -41,11 +62,11 @@ public class Player : MonoBehaviour
         transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
         if(pickUp != null){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < 4){
-                pickUp.transform.position = new Vector3(hit.point.x, hit.point.y + pickUp.GetComponent<Pickup>().holdHeightOnGround, hit.point.z);
+            if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistanceGround * pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistanceGround){
+                pickUp.transform.position = new Vector3(hit.point.x, hit.point.y + pickUp.GetComponent<DataHolder>().get<PickUp>().holdHeightOnGround, hit.point.z);
                 pickUp.transform.rotation = Quaternion.identity;
             }else{
-                pickUp.transform.position = transform.position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<Pickup>().holdDistance + Vector3.up * pickUp.GetComponent<Pickup>().holdUp;
+                pickUp.transform.position = transform.GetChild(0).position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistance + Vector3.up * pickUp.GetComponent<DataHolder>().get<PickUp>().holdUp;
             }
             pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
