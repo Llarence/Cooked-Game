@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 429834c12f73cfc47940799d9439c7d9, type: 3}
-  m_Name: PotPickUp
-  m_EditorClassIdentifier: 
-  holdHeightOnGround: 0.5
-  holdDistance: 3
+  m_Script: {fileID: 0}
+  m_Name: CarrotPickup
+  m_EditorClassIdentifier: Assembly-CSharp::PickUp
+  holdHeightOnGround: 0
+  holdDistance: 2
   holdUp: 0
-  holdDistanceGround: 3.4
+  holdDistanceGround: 0
   grabDistance: 5

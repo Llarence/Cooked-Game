@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: StrawberryPickup
+  m_Name: CampfirePickup
   m_EditorClassIdentifier: Assembly-CSharp::PickUp
   holdHeightOnGround: 0
   holdDistance: 2
   holdUp: 0
   holdDistanceGround: 0
-  grabDistance: 2
+  grabDistance: 5

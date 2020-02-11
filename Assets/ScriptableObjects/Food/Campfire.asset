@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: PearPickUp
-  m_EditorClassIdentifier: Assembly-CSharp::PickUp
-  holdHeightOnGround: 0
-  holdDistance: 2
-  holdUp: 0
-  holdDistanceGround: 0
-  grabDistance: 2
+  m_Script: {fileID: 11500000, guid: 6eb8ae0a64d4e61499d28222b9993e00, type: 3}
+  m_Name: Campfire
+  m_EditorClassIdentifier: 
+  reactantsAndProductsInfo: []
+  prefab: {fileID: 3358008472982022689, guid: 76d857994866fa14f978e45c2aeb8fc1, type: 3}
+  foodName: Campfire
