@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float jump;
     public float jumpRecharge;
     public float rotationSpeed;
+    public float Gold;
     float timeSincejump;
     Rigidbody rb;
     int isJumping;
@@ -69,19 +70,6 @@ public class Player : MonoBehaviour
                 pickUp.transform.position = transform.GetChild(0).position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistance + Vector3.up * pickUp.GetComponent<DataHolder>().get<PickUp>().holdUp;
             }
             pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out hit, 4))
-            {
-                if(hit.collider.gameObject.tag == "Plant")
-                {
-                    hit.collider.gameObject.GetComponent<Plant>().clicked = true;
-                }
-            }
         }
     }
 

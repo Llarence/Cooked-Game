@@ -5,48 +5,50 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    public float Bananas;
+    public float Carrots;
+    public float Fish_001;
+    public float Fish_002;
+    public float Grapes;
 
-    public GameObject inventory;
-    public bool InventoryEnabled;
-    public float mushrooms;
-    public Text Mushrooms;
-    public GameObject GOmushroom;
-    public GameObject Player;
+    public GameObject InventoryUI;
+    public GameObject BananasGameObject;
+    public GameObject CarrotsGameObject;
+    public GameObject Fish_001GameObject;
+    public GameObject Fish_002GameObject;
+    public GameObject GrapesGameObject;
 
-    void Update()
+    public Transform Player;
+
+    public bool On = false;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        AccessInventory();
-
-        SetItemValues();
+        
     }
 
-    public void AccessInventory()
+    // Update is called once per frame
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && InventoryEnabled == false)
+        if (Input.GetKeyDown(KeyCode.E) && On == false)
         {
-            InventoryEnabled = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.E) && InventoryEnabled == true)
-        {
-            InventoryEnabled = false;
-        }
-
-        if(InventoryEnabled == true)
-        {
-            inventory.SetActive(true);
+            InventoryUI.SetActive(true);
+            On = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else
+        else if (Input.GetKeyDown(KeyCode.E) && On == true)
         {
-            inventory.SetActive(false);
+            InventoryUI.SetActive(false);
+            On = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
     }
 
-    public void SetItemValues()
+    public void bananas()
     {
-        Mushrooms.text = "Mushrooms: " + mushrooms;
+        Instantiate(BananasGameObject, Player.position, Player.rotation);
     }
 }
