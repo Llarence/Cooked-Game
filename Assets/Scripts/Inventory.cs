@@ -5,20 +5,16 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public float Bananas;
-    public float Carrots;
-    public float Fish_001;
-    public float Fish_002;
-    public float Grapes;
 
     public GameObject InventoryUI;
-    public GameObject BananasGameObject;
-    public GameObject CarrotsGameObject;
-    public GameObject Fish_001GameObject;
-    public GameObject Fish_002GameObject;
-    public GameObject GrapesGameObject;
 
-    public Transform Player;
+    public Text GoldText;
+
+    public Transform SpawnLocation;
+
+    public List<GameObject> Foods = new List<GameObject>();
+    public List<float> FoodCount = new List<float>(); //The element for this corresponds with the element for the actual gameobject (i.e if element 0 is banana for Foods then element 0 for FoodCount is ammount of bananas)
+    public List<Text> UIbuttonTexts = new List<Text>();
 
     public bool On = false;
 
@@ -45,10 +41,71 @@ public class Inventory : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        UIbuttonTexts[0].text = "Bananas: " + FoodCount[0];
+        UIbuttonTexts[1].text = "Carrots: " + FoodCount[1];
+        UIbuttonTexts[2].text = "Fish #1: " + FoodCount[2];
+        UIbuttonTexts[3].text = "Fish #2: " + FoodCount[3];
+        UIbuttonTexts[4].text = "Grapes: " + FoodCount[4];
+
+        GoldText.text = "Gold: " + GameObject.Find("Player").GetComponent<Player>().Gold;
+
     }
 
     public void bananas()
     {
-        Instantiate(BananasGameObject, Player.position, Player.rotation);
+        if (FoodCount[0] > 0)
+        {
+            Instantiate(Foods[0], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[0]--;
+        }
+    }
+    public void carrots()
+    {
+        if (FoodCount[0] > 0)
+        {
+            Instantiate(Foods[0], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[0]--;
+        }
+    }
+    public void carrot()
+    {
+        if (FoodCount[1] > 0)
+        {
+            Instantiate(Foods[1], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[1]--;
+        }
+    }
+    public void fish_001()
+    {
+        if (FoodCount[2] > 0)
+        {
+            Instantiate(Foods[2], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[2]--;
+        }
+    }
+    public void fish_002()
+    {
+        if (FoodCount[3] > 0)
+        {
+            Instantiate(Foods[3], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[3]--;
+        }
+    }
+    public void grapes()
+    {
+        if (FoodCount[4] > 0)
+        {
+            Instantiate(Foods[4], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[4]--;
+        }
+    }
+    public void apples()
+    {
+        if (FoodCount[5] > 0)
+        {
+            Instantiate(Foods[5], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[5]--;
+        }
     }
 }

@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     public float rotationSpeed;
     public float Gold;
     float timeSincejump;
+
+    public bool InventoryOn;
+
     Rigidbody rb;
     int isJumping;
     RaycastHit hit;
@@ -22,6 +25,7 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
+        InventoryOn = GameObject.Find("Manager").GetComponent<Inventory>().On;
         timeSincejump += Time.deltaTime;
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
@@ -59,8 +63,11 @@ public class Player : MonoBehaviour
                 pickUp = null;
             }
         }
-        transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y") * rotationSpeed, 0, 0);
-        transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
+        if (InventoryOn == false)
+        {
+            transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y") * rotationSpeed, 0, 0);
+            transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
+        }
         if(pickUp != null){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit) && Vector3.SqrMagnitude(hit.point - ray.origin) < pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistanceGround * pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistanceGround){
