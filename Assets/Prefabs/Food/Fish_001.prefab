@@ -153,4 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25eba79f08ddadf4f9cdcfa69a5f3c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectCost: 0
+  ObjectCost: 1
+  store: 0
+  banana: 0
+  carrot: 0
+  fish_001: 1
+  fish_002: 0
+  grape: 0
+  apple: 0

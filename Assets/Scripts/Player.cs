@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     int isJumping;
     RaycastHit hit;
     GameObject pickUp;
+    public GameObject openPickup;//ignore the error that occurs
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
+        openPickup = pickUp;
         InventoryOn = GameObject.Find("Manager").GetComponent<Inventory>().On;
         timeSincejump += Time.deltaTime;
         if(Input.GetMouseButtonUp(0)){

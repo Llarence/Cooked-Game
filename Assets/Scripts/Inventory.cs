@@ -47,6 +47,7 @@ public class Inventory : MonoBehaviour
         UIbuttonTexts[2].text = "Fish #1: " + FoodCount[2];
         UIbuttonTexts[3].text = "Fish #2: " + FoodCount[3];
         UIbuttonTexts[4].text = "Grapes: " + FoodCount[4];
+        UIbuttonTexts[5].text = "Apples: " + FoodCount[5];
 
         GoldText.text = "Gold: " + GameObject.Find("Player").GetComponent<Player>().Gold;
 
@@ -61,14 +62,6 @@ public class Inventory : MonoBehaviour
         }
     }
     public void carrots()
-    {
-        if (FoodCount[0] > 0)
-        {
-            Instantiate(Foods[0], SpawnLocation.position, SpawnLocation.rotation);
-            FoodCount[0]--;
-        }
-    }
-    public void carrot()
     {
         if (FoodCount[1] > 0)
         {

@@ -154,3 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectCost: 1
+  store: 0
+  banana: 0
+  carrot: 0
+  fish_001: 0
+  fish_002: 0
+  grape: 0
+  apple: 1
