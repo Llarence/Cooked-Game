@@ -17,8 +17,7 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     int isJumping;
     RaycastHit hit;
-    GameObject pickUp;
-    public GameObject openPickup;//ignore the error that occurs
+    public GameObject pickUp;
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
@@ -26,43 +25,13 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
-        openPickup = pickUp;
         InventoryOn = GameObject.Find("Manager").GetComponent<Inventory>().On;
         timeSincejump += Time.deltaTime;
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100)){
-                    if(hit.collider.gameObject.GetComponent<DataHolder>() != null){
-                        if(hit.collider.gameObject.GetComponent<DataHolder>().has<PickUp>()){
-                            if(hit.collider.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
-                                pickUp = hit.collider.gameObject;
-                                pickUp.GetComponent<Rigidbody>().useGravity = false;
-                                pickUp.layer = 2;
-                            }
-                        }
-                    }if(hit.collider.transform.parent != null){
-                        if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
-                            if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
-                                pickUp = hit.collider.transform.parent.gameObject;
-                                pickUp.GetComponent<Rigidbody>().useGravity = false;
-                                foreach(Transform child in pickUp.transform){
-                                    child.gameObject.layer = 2;
-                                }
-                                pickUp.layer = 2;
-                            }
-                        }
-                    }
-                }
+                addPickUp();
             }else{
-                pickUp.layer = 0;
-                if(pickUp.transform.childCount > 0){
-                    foreach(Transform child in pickUp.transform){
-                        child.gameObject.layer = 0;
-                    }
-                }
-                pickUp.GetComponent<Rigidbody>().useGravity = true;
-                pickUp = null;
+                dropPickUp();
             }
         }
         if (InventoryOn == false)
@@ -79,6 +48,11 @@ public class Player : MonoBehaviour
                 pickUp.transform.position = transform.GetChild(0).position + transform.GetChild(0).rotation * Vector3.forward * pickUp.GetComponent<DataHolder>().get<PickUp>().holdDistance + Vector3.up * pickUp.GetComponent<DataHolder>().get<PickUp>().holdUp;
             }
             pickUp.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            if(Input.GetMouseButtonUp(1)){
+                if(pickUp.GetComponent<DataHolder>().has<Action>()){
+                    pickUp.GetComponent<DataHolder>().get<Action>().act(pickUp, gameObject);
+                }
+            }
         }
     }
 
@@ -92,5 +66,42 @@ public class Player : MonoBehaviour
             isJumping = 1;
             timeSincejump = 0;
         }
+    }
+
+    void addPickUp(){
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 100)){
+            if(hit.collider.gameObject.GetComponent<DataHolder>() != null){
+                if(hit.collider.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                    if(hit.collider.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                        pickUp = hit.collider.gameObject;
+                        pickUp.GetComponent<Rigidbody>().useGravity = false;
+                        pickUp.layer = 2;
+                    }
+                }
+            }if(hit.collider.transform.parent != null){
+                if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                    if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                        pickUp = hit.collider.transform.parent.gameObject;
+                        pickUp.GetComponent<Rigidbody>().useGravity = false;
+                        foreach(Transform child in pickUp.transform){
+                            child.gameObject.layer = 2;
+                        }
+                        pickUp.layer = 2;
+                    }
+                }
+            }
+        }
+    }
+
+    public void dropPickUp(){
+        pickUp.layer = 0;
+        if(pickUp.transform.childCount > 0){
+            foreach(Transform child in pickUp.transform){
+                child.gameObject.layer = 0;
+            }
+        }
+        pickUp.GetComponent<Rigidbody>().useGravity = true;
+        pickUp = null;
     }
 }

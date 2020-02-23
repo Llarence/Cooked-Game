@@ -261,7 +261,7 @@ public class TerrainGenerator : MonoBehaviour
 						}
 					}
 
-					//makes traingles face outwards and adds the vertices for the traingles
+					//makes triangles face outwards and adds the vertices for the traingles
 					for(int i = 0; i < triList.Count; i++){
 						if(i % 3 == 0){
 							triReList.Add(totalI + i);

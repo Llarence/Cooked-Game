@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreManager : MonoBehaviour
+/*public class StoreManager : MonoBehaviour
 {
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<Player>().openPickup.GetComponent<Rigidbody>().useGravity == false)
+        if (gameObject.GetComponent<Player>().pickUp.GetComponent<Rigidbody>().useGravity == false)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                gameObject.GetComponent<Player>().openPickup.GetComponent<SellableObject>().store = true;
+                gameObject.GetComponent<Player>().pickUp.GetComponent<SellableObject>().store = true;
             }
         }
     }
 }
+*/
