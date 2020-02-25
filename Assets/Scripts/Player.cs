@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     int isJumping;
     RaycastHit hit;
     GameObject pickUp;
-    public GameObject openPickup;//ignore the error that occurs
+    public GameObject openPickup;
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
