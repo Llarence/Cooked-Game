@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb8ae0a64d4e61499d28222b9993e00, type: 3}
   m_Name: Banana
   m_EditorClassIdentifier: 
-  reactantsAndProductsInfo: []
+  reactantsAndProductsInfo:
+  - IsTheCollisionFood: 1
+    reactants:
+    - {fileID: 11400000, guid: 96863326af9a7ca4f87cf12387fda6a9, type: 2}
+    - {fileID: 11400000}
+    products:
+    - {fileID: 11400000, guid: 856d3a5df7740cf45a7296ec1be9a4ab, type: 2}
   prefab: {fileID: 8410944682426188248, guid: 268c3994b9a20644cb2debd505b420f8, type: 3}
   foodName: Banana

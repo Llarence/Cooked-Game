@@ -14,7 +14,10 @@ public class PlayerCollector : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                hit.collider.gameObject.GetComponent<Collectable>().selected = true;
+                if (hit.collider.gameObject.GetComponent<Collectable>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<Collectable>().selected = true;
+                }
             }
         }
     }

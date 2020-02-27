@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    public string food;
-
     public bool selected;
     public bool active = true;
     public bool ground;
     public bool tree;
 
-    private GameObject Manager;
     public GameObject Fruit;
+    public GameObject TreeFruit;
     public GameObject Spawner;
+    public GameObject FruitLocation1;
+    public GameObject FruitLocation2;
+    public GameObject FruitLocation3;
+    public GameObject FruitLocation4;
+    public GameObject FruitLocation5;
 
     public float timer;
     public float fruitCount = 5;
@@ -24,14 +27,27 @@ public class Collectable : MonoBehaviour
     // For carrot type "carrot" into the string
     // For grape type "grape" into the string
 
+    private void Start()
+    {
+        if (tree == true)
+        {
+            Instantiate(TreeFruit, FruitLocation1.transform.position, FruitLocation1.transform.rotation);
+            Instantiate(TreeFruit, FruitLocation2.transform.position, FruitLocation2.transform.rotation);
+            Instantiate(TreeFruit, FruitLocation3.transform.position, FruitLocation3.transform.rotation);
+            Instantiate(TreeFruit, FruitLocation4.transform.position, FruitLocation4.transform.rotation);
+            Instantiate(TreeFruit, FruitLocation5.transform.position, FruitLocation5.transform.rotation);
+        }
+    }
+
     void Update()
     {
-        Manager = GameObject.Find("Manager");
+
         if (ground == true)
         {
             if (active == true)
             {
                 gameObject.GetComponent<MeshRenderer>().enabled = true;
+                gameObject.GetComponent<MeshCollider>().enabled = true;
 
                 if (selected == true)
                 {
@@ -43,6 +59,7 @@ public class Collectable : MonoBehaviour
             else if (active == false)
             {
                 gameObject.GetComponent<MeshRenderer>().enabled = false;
+                gameObject.GetComponent<MeshCollider>().enabled = false;
                 selected = false;
                 timer += 1 * Time.deltaTime;
             }

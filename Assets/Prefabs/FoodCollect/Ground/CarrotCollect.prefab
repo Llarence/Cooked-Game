@@ -138,13 +138,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb5c0bec1bf3f74480a2c7ab7d38311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: carrot
   selected: 0
   active: 1
   ground: 1
   tree: 0
   Fruit: {fileID: 7734910804281421372, guid: 062cbb8fc49b1a1479bd7421275286cf, type: 3}
+  TreeFruit: {fileID: 0}
   Spawner: {fileID: 2485179620493736427}
+  FruitLocation1: {fileID: 0}
+  FruitLocation2: {fileID: 0}
+  FruitLocation3: {fileID: 0}
+  FruitLocation4: {fileID: 0}
+  FruitLocation5: {fileID: 0}
   timer: 0
   fruitCount: 5
   maxFruit: 5

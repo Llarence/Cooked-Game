@@ -55,10 +55,13 @@ public class SellableObject : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<Seller>().recieve >= ObjectCost)
+        if (collision.gameObject.GetComponent<Seller>() != null)
         {
-            GameObject.Find("Player").GetComponent<Player>().Gold += ObjectCost;
-            Destroy(gameObject);
+            if (collision.gameObject.GetComponent<Seller>().recieve >= ObjectCost)
+            {
+                GameObject.Find("Player").GetComponent<Player>().Gold += ObjectCost;
+                Destroy(gameObject);
+            }
         }
     }
 }

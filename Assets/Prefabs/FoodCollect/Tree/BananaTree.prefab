@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 7337046061595642688}
   - component: {fileID: 7337046061595642687}
   m_Layer: 0
-  m_Name: AppleTree
+  m_Name: BananaTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -512,8 +512,8 @@ MonoBehaviour:
   active: 1
   ground: 0
   tree: 1
-  Fruit: {fileID: 3832420277863880656, guid: 3f6a1520527c06948abe0528d39667d1, type: 3}
-  TreeFruit: {fileID: 3832420277863880656, guid: d752c41545342b24a83d949f5543e539,
+  Fruit: {fileID: 8410944682426188248, guid: 268c3994b9a20644cb2debd505b420f8, type: 3}
+  TreeFruit: {fileID: 8410944682426188248, guid: 73efab9108018da40a573f936770c478,
     type: 3}
   Spawner: {fileID: 7337046061965867096}
   FruitLocation1: {fileID: 231398060}
