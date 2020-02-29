@@ -15,9 +15,8 @@ MonoBehaviour:
   reactantsAndProductsInfo:
   - IsTheCollisionFood: 1
     reactants:
-    - {fileID: 11400000}
     - {fileID: 11400000, guid: b3e3f608d4e35ca419b1b4b4d74bcba5, type: 2}
     products:
-    - {fileID: 11400000, guid: 856d3a5df7740cf45a7296ec1be9a4ab, type: 2}
+    - {fileID: 11400000, guid: 3b7629cce06eb364f9b43329f68c9da4, type: 2}
   prefab: {fileID: 3832420277863880656, guid: 3f6a1520527c06948abe0528d39667d1, type: 3}
   foodName: Apple

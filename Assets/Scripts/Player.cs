@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
                                 pickUp.layer = 2;
                             }
                         }
-                    }if(hit.collider.transform.parent != null){
+                    }if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>() != null){
                         if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
                             if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
                                 pickUp = hit.collider.transform.parent.gameObject;

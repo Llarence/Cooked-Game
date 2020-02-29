@@ -10,13 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eb8ae0a64d4e61499d28222b9993e00, type: 3}
-  m_Name: Banana
+  m_Name: FruitSalad
   m_EditorClassIdentifier: 
-  reactantsAndProductsInfo:
-  - IsTheCollisionFood: 0
-    reactants:
-    - {fileID: 11400000, guid: 96863326af9a7ca4f87cf12387fda6a9, type: 2}
-    products:
-    - {fileID: 11400000, guid: 3b7629cce06eb364f9b43329f68c9da4, type: 2}
-  prefab: {fileID: 3832420277863880656, guid: 3f6a1520527c06948abe0528d39667d1, type: 3}
-  foodName: Banana
+  reactantsAndProductsInfo: []
+  prefab: {fileID: 1887893581214658773, guid: 817129c4313e1b9489f525e11f0b3fb3, type: 3}
+  foodName: FruitSalad
