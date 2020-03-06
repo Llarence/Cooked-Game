@@ -7,6 +7,8 @@ public class Inventory : MonoBehaviour
 {
 
     public GameObject InventoryUI;
+    public GameObject Player;
+    public GameObject MarketMenu;
 
     public Text GoldText;
 
@@ -15,6 +17,8 @@ public class Inventory : MonoBehaviour
     public List<GameObject> Foods = new List<GameObject>();
     public List<float> FoodCount = new List<float>(); //The element for this corresponds with the element for the actual gameobject (i.e if element 0 is banana for Foods then element 0 for FoodCount is ammount of bananas)
     public List<Text> UIbuttonTexts = new List<Text>();
+    public List<Text> UImarketTexts = new List<Text>();
+    public List<int> FoodPrices = new List<int>();
 
     public bool On = false;
 
@@ -49,6 +53,14 @@ public class Inventory : MonoBehaviour
         UIbuttonTexts[4].text = "Grapes: " + FoodCount[4];
         UIbuttonTexts[5].text = "Apples: " + FoodCount[5];
         UIbuttonTexts[6].text = "FruitSalad: " + FoodCount[6];
+
+        UImarketTexts[0].text = "Bananas: " + FoodCount[0];
+        UImarketTexts[1].text = "Carrots: " + FoodCount[1];
+        UImarketTexts[2].text = "Fish #1: " + FoodCount[2];
+        UImarketTexts[3].text = "Fish #2: " + FoodCount[3];
+        UImarketTexts[4].text = "Grapes: " + FoodCount[4];
+        UImarketTexts[5].text = "Apples: " + FoodCount[5];
+        UImarketTexts[6].text = "FruitSalad: " + FoodCount[6];
 
         GoldText.text = "Gold: " + GameObject.Find("Player").GetComponent<Player>().Gold;
 
@@ -109,5 +121,69 @@ public class Inventory : MonoBehaviour
             Instantiate(Foods[6], SpawnLocation.position, SpawnLocation.rotation);
             FoodCount[6]--;
         }
+    }
+
+    public void bananasMarket()
+    {
+        if (FoodCount[0] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[0];
+            FoodCount[0]--;
+        }
+    }
+    public void carrotsMarket()
+    {
+        if (FoodCount[1] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[1];
+            FoodCount[1]--;
+        }
+    }
+    public void fish_001Market()
+    {
+        if (FoodCount[2] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[2];
+            FoodCount[2]--;
+        }
+    }
+    public void fish_002Market()
+    {
+        if (FoodCount[3] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[3];
+            FoodCount[3]--;
+        }
+    }
+    public void grapesMarket()
+    {
+        if (FoodCount[4] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[4];
+            FoodCount[4]--;
+        }
+    }
+    public void applesMarket()
+    {
+        if (FoodCount[5] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[5];
+            FoodCount[5]--;
+        }
+    }
+    public void fruitSaladMarket()
+    {
+        if (FoodCount[6] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[6];
+            FoodCount[6]--;
+        }
+    }
+    public void BackMarket()
+    {
+        GameObject.Find("Market").GetComponent<MarketPlace>().selected = false;
+        MarketMenu.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

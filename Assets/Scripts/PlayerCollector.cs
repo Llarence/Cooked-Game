@@ -18,6 +18,11 @@ public class PlayerCollector : MonoBehaviour
                 {
                     hit.collider.gameObject.GetComponent<Collectable>().selected = true;
                 }
+                
+                if (hit.collider.gameObject.GetComponent<MarketPlace>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<MarketPlace>().selected = true;
+                }
             }
         }
     }

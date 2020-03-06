@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class SellableObject : MonoBehaviour
 {
-    public float ObjectCost;
-
     public bool store;
-
     public bool banana;
     public bool carrot;
     public bool fish_001;
@@ -54,18 +51,6 @@ public class SellableObject : MonoBehaviour
             if (fruitSalad == true)
             {
                 GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[6]++;
-                Destroy(gameObject);
-            }
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<Seller>() != null)
-        {
-            if (collision.gameObject.GetComponent<Seller>().recieve >= ObjectCost)
-            {
-                GameObject.Find("Player").GetComponent<Player>().Gold += ObjectCost;
                 Destroy(gameObject);
             }
         }

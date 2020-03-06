@@ -9,10 +9,11 @@ public class Player : MonoBehaviour
     public float jump;
     public float jumpRecharge;
     public float rotationSpeed;
-    public float Gold;
+    public int Gold;
     float timeSincejump;
 
     public bool InventoryOn;
+    public bool MarketOn;
 
     Rigidbody rb;
     int isJumping;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     void Update(){
         openPickup = pickUp;
         InventoryOn = GameObject.Find("Manager").GetComponent<Inventory>().On;
+        MarketOn = GameObject.Find("Market").GetComponent<MarketPlace>().selected;
         timeSincejump += Time.deltaTime;
         if(Input.GetMouseButtonUp(0)){
             if(pickUp == null){
@@ -41,7 +43,10 @@ public class Player : MonoBehaviour
                                 pickUp.layer = 2;
                             }
                         }
-                    }if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>() != null){
+                    }
+                    
+                    if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>() != null)
+                    {
                         if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
                             if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
                                 pickUp = hit.collider.transform.parent.gameObject;
@@ -65,7 +70,7 @@ public class Player : MonoBehaviour
                 pickUp = null;
             }
         }
-        if (InventoryOn == false)
+        if (InventoryOn == false && MarketOn == false)
         {
             transform.GetChild(0).Rotate(-Input.GetAxis("Mouse Y") * rotationSpeed, 0, 0);
             transform.Rotate(0, Input.GetAxis("Mouse X") * rotationSpeed, 0);
