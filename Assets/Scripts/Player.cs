@@ -43,18 +43,17 @@ public class Player : MonoBehaviour
                                 pickUp.layer = 2;
                             }
                         }
-                    }
-                    
-                    if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>() != null)
-                    {
-                        if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
-                            if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
-                                pickUp = hit.collider.transform.parent.gameObject;
-                                pickUp.GetComponent<Rigidbody>().useGravity = false;
-                                foreach(Transform child in pickUp.transform){
-                                    child.gameObject.layer = 2;
+                    }else if(hit.collider.transform.parent != null){
+                        if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>() != null){
+                            if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().has<PickUp>()){
+                                if(hit.collider.transform.parent.gameObject.GetComponent<DataHolder>().get<PickUp>().grabDistance >= hit.distance){
+                                    pickUp = hit.collider.transform.parent.gameObject;
+                                    pickUp.GetComponent<Rigidbody>().useGravity = false;
+                                    foreach(Transform child in pickUp.transform){
+                                        child.gameObject.layer = 2;
+                                    }
+                                    pickUp.layer = 2;
                                 }
-                                pickUp.layer = 2;
                             }
                         }
                     }
