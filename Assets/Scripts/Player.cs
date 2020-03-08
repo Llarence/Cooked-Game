@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //after changing check if player is dead
+    public float health;
     public float speed;
+    public float runSpeed;
     public float jump;
     public float jumpRecharge;
     public float rotationSpeed;
     public int Gold;
     float timeSincejump;
+    float lastGround;
 
     public bool InventoryOn;
     public bool MarketOn;
@@ -27,7 +31,7 @@ public class Player : MonoBehaviour
     }
 
     void Update(){
-        openPickup = pickUp;
+        openPickup = pickUp;    
         InventoryOn = GameObject.Find("Manager").GetComponent<Inventory>().On;
         MarketOn = GameObject.Find("Market").GetComponent<MarketPlace>().selected;
         timeSincejump += Time.deltaTime;
@@ -87,7 +91,11 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate(){
-        rb.velocity = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * speed, rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), Input.GetAxisRaw("Vertical") * speed);
+        if(Input.GetKey(KeyCode.LeftShift)) {
+            rb.velocity = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * runSpeed, rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), Input.GetAxisRaw("Vertical") * runSpeed);
+        }else{
+            rb.velocity = transform.rotation * new Vector3(Input.GetAxisRaw("Horizontal") * speed, rb.velocity.y - (rb.velocity.y * isJumping) + (isJumping * jump), Input.GetAxisRaw("Vertical") * speed);
+        }
         isJumping = 0;
     }
 
@@ -95,6 +103,17 @@ public class Player : MonoBehaviour
         if(Input.GetAxis("Jump") > 0 && jumpRecharge <= timeSincejump){
             isJumping = 1;
             timeSincejump = 0;
+        }
+    }
+
+    void OnTriggerExit(){
+       lastGround = Time.time;
+    }
+
+    void OnTriggerEnter(){
+        if(Time.time - lastGround > 1){
+            health -= (Time.time - lastGround - 1) * 50;
+            gameObject.transform.localScale = new Vector3(health / 100, health / 100, health / 100);
         }
     }
 }
