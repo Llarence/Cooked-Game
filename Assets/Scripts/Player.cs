@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //after changing check if player is dead
-    public float health;
     public float speed;
     public float runSpeed;
     public float jump;
@@ -103,17 +101,6 @@ public class Player : MonoBehaviour
         if(Input.GetAxis("Jump") > 0 && jumpRecharge <= timeSincejump){
             isJumping = 1;
             timeSincejump = 0;
-        }
-    }
-
-    void OnTriggerExit(){
-       lastGround = Time.time;
-    }
-
-    void OnTriggerEnter(){
-        if(Time.time - lastGround > 1){
-            health -= (Time.time - lastGround - 1) * 50;
-            gameObject.transform.localScale = new Vector3(health / 100, health / 100, health / 100);
         }
     }
 }

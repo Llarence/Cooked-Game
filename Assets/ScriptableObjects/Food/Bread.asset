@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eb8ae0a64d4e61499d28222b9993e00, type: 3}
-  m_Name: FruitSalad
+  m_Name: Bread
   m_EditorClassIdentifier: 
   reactantsAndProductsInfo: []
-  prefab: {fileID: 9102817779696977141, guid: 817129c4313e1b9489f525e11f0b3fb3, type: 3}
-  foodName: FruitSalad
+  prefab: {fileID: 4048419589604677714, guid: 87c2f95e32ab6cf429c2b0b547ab7242, type: 3}
+  foodName: Bread

@@ -53,6 +53,10 @@ public class Inventory : MonoBehaviour
         UIbuttonTexts[4].text = "Grapes: " + FoodCount[4];
         UIbuttonTexts[5].text = "Apples: " + FoodCount[5];
         UIbuttonTexts[6].text = "FruitSalad: " + FoodCount[6];
+        UIbuttonTexts[7].text = "Pear: " + FoodCount[7];
+        UIbuttonTexts[8].text = "Garlic: " + FoodCount[8];
+        UIbuttonTexts[9].text = "Corn: " + FoodCount[9];
+        UIbuttonTexts[10].text = "Bread: " + FoodCount[10];
 
         UImarketTexts[0].text = "Bananas: " + FoodCount[0];
         UImarketTexts[1].text = "Carrots: " + FoodCount[1];
@@ -61,6 +65,10 @@ public class Inventory : MonoBehaviour
         UImarketTexts[4].text = "Grapes: " + FoodCount[4];
         UImarketTexts[5].text = "Apples: " + FoodCount[5];
         UImarketTexts[6].text = "FruitSalad: " + FoodCount[6];
+        UImarketTexts[7].text = "Pear: " + FoodCount[7];
+        UImarketTexts[8].text = "Garlic: " + FoodCount[8];
+        UImarketTexts[9].text = "Corn: " + FoodCount[9];
+        UImarketTexts[10].text = "Bread: " + FoodCount[10];
 
         GoldText.text = "Gold: " + GameObject.Find("Player").GetComponent<Player>().Gold;
 
@@ -122,6 +130,38 @@ public class Inventory : MonoBehaviour
             FoodCount[6]--;
         }
     }
+    public void pear()
+    {
+        if (FoodCount[7] > 0)
+        {
+            Instantiate(Foods[7], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[7]--;
+        }
+    }
+    public void garlic()
+    {
+        if (FoodCount[8] > 0)
+        {
+            Instantiate(Foods[8], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[8]--;
+        }
+    }
+    public void corn()
+    {
+        if (FoodCount[9] > 0)
+        {
+            Instantiate(Foods[9], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[9]--;
+        }
+    }
+    public void bread()
+    {
+        if (FoodCount[10] > 0)
+        {
+            Instantiate(Foods[10], SpawnLocation.position, SpawnLocation.rotation);
+            FoodCount[10]--;
+        }
+    }
 
     public void bananasMarket()
     {
@@ -177,6 +217,38 @@ public class Inventory : MonoBehaviour
         {
             Player.GetComponent<Player>().Gold += FoodPrices[6];
             FoodCount[6]--;
+        }
+    }
+    public void pearMarket()
+    {
+        if (FoodCount[7] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[7];
+            FoodCount[7]--;
+        }
+    }
+    public void garlicMarket()
+    {
+        if (FoodCount[8] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[8];
+            FoodCount[8]--;
+        }
+    }
+    public void cornMarket()
+    {
+        if (FoodCount[9] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[9];
+            FoodCount[9]--;
+        }
+    }
+    public void breadMarket()
+    {
+        if (FoodCount[10] != 0)
+        {
+            Player.GetComponent<Player>().Gold += FoodPrices[10];
+            FoodCount[10]--;
         }
     }
     public void BackMarket()

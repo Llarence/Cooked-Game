@@ -13,6 +13,10 @@ public class SellableObject : MonoBehaviour
     public bool grape;
     public bool apple;
     public bool fruitSalad;
+    public bool pear;
+    public bool garlic;
+    public bool corn;
+    public bool bread;
 
     void Update()
     {
@@ -51,6 +55,26 @@ public class SellableObject : MonoBehaviour
             if (fruitSalad == true)
             {
                 GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[6]++;
+                Destroy(gameObject);
+            }
+            if (pear == true)
+            {
+                GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[7]++;
+                Destroy(gameObject);
+            }
+            if (garlic == true)
+            {
+                GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[8]++;
+                Destroy(gameObject);
+            }
+            if (corn == true)
+            {
+                GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[9]++;
+                Destroy(gameObject);
+            }
+            if (bread == true)
+            {
+                GameObject.Find("Manager").GetComponent<Inventory>().FoodCount[10]++;
                 Destroy(gameObject);
             }
         }
